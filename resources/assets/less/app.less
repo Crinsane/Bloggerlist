@@ -1,0 +1,131 @@
+@import "node_modules/bootstrap/less/bootstrap";
+
+// @import "./spark/spark";
+@import "./../../../vendor/laravel/spark/resources/assets/less/spark";
+
+// Inspinia style
+@import "theme/style";
+
+// Fontawesome
+@import "node_modules/font-awesome/less/font-awesome";
+
+// Animate CSS
+@import (less) 'node_modules/animate.css/animate.css';
+
+// Toastr
+@import 'node_modules/toastr/toastr';
+
+// Dropzone CSS
+@import (less) 'node_modules/dropzone/dist/basic.css';
+@import (less) 'node_modules/dropzone/dist/dropzone.css';
+
+@import "project-category-labels";
+
+@navy: #b38d51;
+@nav-profil-pattern: url("/img/patterns/header-profile.png") no-repeat;
+
+.btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger {
+    border: 1px solid;
+}
+
+.dropdown-header {
+    font-weight: bold;
+    color: #4b5154;
+}
+
+.dropdown-menu .dropdown-header:first-child {
+    padding-top: 10px;
+}
+
+.spark-settings-tabs li a {
+    color: #676a6c;
+}
+
+.spark-settings-tabs li.active a {
+    color: #333333;
+}
+
+.spark-settings-stacked-tabs li.active a {
+    border-left: 0;
+}
+
+.dropzone {
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    border-radius: 3px;
+    min-height: 280px;
+    padding: 23px;
+
+    &.dz-drag-hover {
+        background: rgba(0, 0, 0, 0.04);
+        border-color: rgba(0, 0, 0, 0.15);
+    }
+}
+
+.dz-default.dz-message {
+    line-height: 232px;
+    font-size: 24px;
+    margin: 0;
+}
+
+.dropzone.dz-started .dz-message {
+    display: block !important;
+}
+
+.project-image-thumbnail {
+    margin: 0 13px 13px 0;
+    width: 120px;
+    height: 120px;
+    position: relative;
+
+    & img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.project-image-delete {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    height: 21px;
+    width: 21px;
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 15px;
+    text-indent: 0;
+}
+
+.projects-loading {
+    min-height: 400px;
+    padding-top: 150px;
+    text-align: center;
+}
+
+.no-projects-found {
+    min-height: 400px;
+    padding-top: 150px;
+    text-align: center;
+}
+
+.project-category-filter {
+    border: 1px solid #e7eaec;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 5px 10px;
+    margin-left: 5px;
+
+    & .fa {
+        margin-left: 10px;
+        color: #676a6c;
+    }
+}
+
+.project-step-handle {
+    cursor: pointer;
+}
+
+#project-steps .fa-times {
+    color: #676a6c;
+}

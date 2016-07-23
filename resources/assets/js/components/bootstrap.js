@@ -1,0 +1,23 @@
+
+/*
+ |--------------------------------------------------------------------------
+ | Laravel Spark Components
+ |--------------------------------------------------------------------------
+ |
+ | Here we will load the Spark components which makes up the core client
+ | application. This is also a convenient spot for you to load all of
+ | your components that you write while building your applications.
+ */
+
+require('./../spark-components/bootstrap');
+
+require('./home');
+
+// Load the new Vue component...
+require('./settings/profile/update-profile-details');
+
+require('./projects/create-project');
+require('./projects/update-project');
+require('./projects/project-image');
+require('./projects/projects-list');
+require('./projects/project-steps');
