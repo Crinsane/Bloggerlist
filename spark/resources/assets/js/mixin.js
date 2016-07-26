@@ -26,5 +26,11 @@ module.exports = {
         spark() {
             return window.Spark;
         }
+    },
+
+    methods: {
+        subscribedToProject(projectId) {
+            return this.user.subscribed_projects.filter(project => project.id == projectId).length > 0;
+        }
     }
 };

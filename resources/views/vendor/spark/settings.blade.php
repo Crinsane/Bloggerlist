@@ -63,7 +63,7 @@
                                 </div>
 
                                 <!-- Billing Tabs -->
-                                @if (Spark::canBillCustomers())
+                                @if (Spark::canBillCustomers() && Auth()->user()->isCompany())
                                     <div class="ibox">
                                         <div class="ibox-title"><h5>Billing</h5></div>
 

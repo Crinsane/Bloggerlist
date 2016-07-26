@@ -41,6 +41,38 @@ class Project extends Model implements HasMediaConversions
     }
 
     /**
+     * A project belongs to a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * A project has one or more subscribers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subscribers()
+    {
+        return $this->belongsToMany(User::class, 'user_project_subscriptions')
+            ->withPivot(['message', 'chosen_at'])
+            ->withTimestamps();
+    }
+
+    /**
+     * A project can favorited one or many users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favorites()
+    {
+        return $this->belongsToMany(User::class, 'user_project_favorites');
+    }
+
+    /**
      * Create a new project for the given user with the given attributes.
      *
      * @param \App\User $user
@@ -125,6 +157,10 @@ class Project extends Model implements HasMediaConversions
     {
         $this->addMediaConversion('thumbnail')
             ->setManipulations(['w' => 120, 'h' => 120, 'fit' => 'crop'])
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('big')
+            ->setManipulations(['w' => 1140, 'h' => 500, 'fit' => 'crop'])
             ->performOnCollections('images');
     }
 }

@@ -11,6 +11,14 @@ use App\Http\Controllers\Controller;
 class BranchesController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Return a list of all branches.
      *
      * @return \Illuminate\Http\JsonResponse

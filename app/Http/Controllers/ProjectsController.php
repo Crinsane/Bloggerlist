@@ -2,112 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Projects\Category;
 use App\Projects\Project;
-use Gloudemans\Notify\Notifications\AddsNotifications;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class ProjectsController extends Controller
 {
-    use AddsNotifications;
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
-     * Display a listing of the resource.
+     * Show a listing of all projects.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return view('projects.index');
+        $projects = Project::with('category', 'user')
+            ->whereNull('completed_at')
+            ->latest()
+            ->paginate(9);
+
+        return view('projects.index', compact('projects'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categories = Category::all();
-
-        return view('projects.create', compact('categories'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \App\Http\Requests\CreateProjectRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Requests\CreateProjectRequest $request)
-    {
-        $project = Project::createProjectForUser(
-            $request->user(), $request->only(['title', 'description', 'reward', 'category_id', 'location'])
-        );
-
-        $project->addSteps(array_map(function ($step) {
-            return json_decode($step, true);
-        }, $request->get('steps')));
-
-        $project->addImages($request->file('images'));
-
-        $this->notifySuccess('Your new project has successfully been created.');
-
-        return response()->json([
-            'redirect' => route('projects.edit', $project)
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show a detailed view of the project.
      *
      * @param \App\Projects\Project $project
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function edit(Project $project)
+    public function show(Project $project)
     {
-        $categories = Category::all();
-
-        return view('projects.edit', compact('project', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Http\Requests\UpdateProjectRequest $request
-     * @param \App\Projects\Project                   $project
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Requests\UpdateProjectRequest $request, Project $project)
-    {
-        $project->update($request->only(['title', 'description', 'reward', 'category_id', 'location']));
-
-        $project->steps()->delete();
-
-        $project->addSteps($request->steps);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('projects.show', compact('project'));
     }
 }

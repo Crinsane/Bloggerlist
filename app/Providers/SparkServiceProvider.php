@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
+use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Laravel\Spark\Spark;
 use Laravel\Spark\Events\Profile\ContactInformationUpdated;
 use Laravel\Spark\Providers\AppServiceProvider as ServiceProvider;
@@ -124,6 +125,14 @@ class SparkServiceProvider extends ServiceProvider
             ])->save();
 
             event(new ContactInformationUpdated($user));
+
+            return $user;
+        });
+
+        Spark::swap('UserRepository@current', function () {
+            $user = $this->app->make(UserRepository::class)->current();
+
+            $user->load('subscribedProjects');
 
             return $user;
         });

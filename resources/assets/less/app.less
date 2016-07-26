@@ -10,7 +10,8 @@
 @import "node_modules/font-awesome/less/font-awesome";
 
 // Animate CSS
-@import (less) 'node_modules/animate.css/animate.css';
+//@import (less) 'node_modules/animate.css/animate.css';
+@import (less) '../css/animate.css';
 
 // Toastr
 @import 'node_modules/toastr/toastr';
@@ -23,6 +24,10 @@
 
 @navy: #b38d51;
 @nav-profil-pattern: url("/img/patterns/header-profile.png") no-repeat;
+
+#toast-container > .toast {
+    background-image: none !important;
+}
 
 .btn-primary, .btn-info, .btn-success, .btn-warning, .btn-danger {
     border: 1px solid;
@@ -138,4 +143,13 @@
 .list-group.selected .list-group-item{
     border-color: #888888;
     color: #888888;
+}
+
+.team-members img.img-circle {
+    height: 77px;
+    width: 77px;
+}
+
+.project-pagination .pagination {
+    float: right;
 }

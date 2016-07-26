@@ -62,6 +62,28 @@ class User extends SparkUser
     }
 
     /**
+     * A user can favorite one or many projects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favorites()
+    {
+        return $this->belongsToMany(Project::class, 'user_project_favorites');
+    }
+
+    /**
+     * A user can be subscribed to many projects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function subscribedProjects()
+    {
+        return $this->belongsToMany(Project::class, 'user_project_subscriptions')
+            ->withPivot('message', 'chosen_at')
+            ->withTimestamps();
+    }
+
+    /**
      * Helper method to check if a user is of the type company.
      *
      * @return bool
@@ -69,5 +91,50 @@ class User extends SparkUser
     public function isCompany()
     {
         return $this->type == 'company';
+    }
+
+    /**
+     * Subscribe for the given project and add the given message.
+     *
+     * @param \App\Projects\Project $project
+     * @param string                $message
+     * @return void
+     */
+    public function subscribeForProjectWithMessage(Project $project, $message)
+    {
+        $this->subscribedProjects()->attach($project, ['message' => $message]);
+    }
+
+    /**
+     * Unsubscribe from the given project.
+     *
+     * @param \App\Projects\Project $project
+     * @return void
+     */
+    public function unsubscribeFromProject(Project $project)
+    {
+        $this->subscribedProjects()->detach($project);
+    }
+
+    /**
+     * Add a project to the users favorites.
+     *
+     * @param mixed $project
+     * @return void
+     */
+    public function favorite($project)
+    {
+        $this->favorites()->attach($project);
+    }
+
+    /**
+     * Remove the project from the users favorites.
+     *
+     * @param mixed $project
+     * @return void
+     */
+    public function unfavorite($project)
+    {
+        $this->favorites()->detach($project);
     }
 }

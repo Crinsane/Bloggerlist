@@ -62,12 +62,15 @@
                 <li {!! Route::currentRouteName() == 'home' ? 'class="active"' : '' !!}>
                     <a href="{{ route('home') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-                <li {!! Route::is('projects*') ? 'class="active"' : '' !!}>
-                    <a href="{{ route('projects.index') }}"><i class="fa fa-bars"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span></a>
+                <li {!! Route::is('company/projects*') ? 'class="active"' : '' !!}>
+                    <a href="{{ route('company.projects.index') }}"><i class="fa fa-bars"></i> <span class="nav-label">Projects</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li {!! Route::currentRouteName() == 'projects.index' ? 'class="active"' : '' !!}><a href="{{ route('projects.index') }}">Personal projects</a></li>
-                        <li {!! Route::currentRouteName() == 'projects.create' ? 'class="active"' : '' !!}><a href="{{ route('projects.create') }}">Create new project</a></li>
+                        <li {!! Route::currentRouteName() == 'company.projects.index' ? 'class="active"' : '' !!}><a href="{{ route('company.projects.index') }}">Personal projects</a></li>
+                        <li {!! Route::currentRouteName() == 'company.projects.create' ? 'class="active"' : '' !!}><a href="{{ route('company.projects.create') }}">Create new project</a></li>
                     </ul>
+                </li>
+                <li {!! Route::currentRouteName() == 'projects.index' ? 'class="active"' : '' !!}>
+                    <a href="{{ route('projects.index') }}"><i class="fa fa-desktop"></i> <span class="nav-label">All projects</span></a>
                 </li>
                 <li>
                     <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>

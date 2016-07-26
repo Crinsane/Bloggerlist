@@ -16,8 +16,12 @@ require('./home');
 // Load the new Vue component...
 require('./settings/profile/update-profile-details');
 
-require('./projects/create-project');
-require('./projects/update-project');
-require('./projects/project-image');
-require('./projects/projects-list');
-require('./projects/project-steps');
+require('./company/projects/create-project');
+require('./company/projects/update-project');
+require('./company/projects/project-image');
+require('./company/projects/projects-list');
+require('./company/projects/project-steps');
+
+require('./projects/project-subscribe');
+require('./projects/project-unsubscribe');
+require('./projects/favorite');

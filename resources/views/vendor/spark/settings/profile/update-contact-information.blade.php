@@ -8,7 +8,7 @@
                 Your contact information has been updated!
             </div>
 
-            <p>This contact information will be used when we need to contact your for anything. If you want to edit your billing information, please click <a href="/settings#/payment-method">here</a></p>
+            <p v-if="user.type == 'company'">This contact information will be used when we need to contact your for anything. If you want to edit your billing information, please click <a href="/settings#/payment-method">here</a></p>
 
             <form class="form-horizontal" role="form">
                 <!-- Name -->

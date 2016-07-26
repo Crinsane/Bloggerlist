@@ -8,6 +8,14 @@ use App\Http\Controllers\Controller;
 class ProjectsController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Return a list of all project for the current user.
      *
      * @return \Illuminate\Http\JsonResponse
