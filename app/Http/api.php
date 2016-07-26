@@ -15,4 +15,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
     Route::get('/projects', 'Api\ProjectsController@index');
 
+    Route::get('/projects/{project}/steps', 'Api\ProjectStepsController@index');
+
 });

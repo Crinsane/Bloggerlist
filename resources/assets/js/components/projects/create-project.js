@@ -37,6 +37,7 @@ Vue.component('create-project', {
     },
 
     methods: {
+
         store() {
             this.form.startProcessing();
 
@@ -46,11 +47,17 @@ Vue.component('create-project', {
                 .then(function(response) {
                     this.form.finishProcessing();
 
-                    // window.location = response.data.redirect;
+                    window.location = response.data.redirect;
                 })
                 .catch(function(response) {
                     this.form.setErrors(response.data);
                 });
+        },
+
+        deleteImage(file) {
+            this.files.$remove(file);
+
+            this.dropZone.removeFile(file.file);
         },
 
         /**

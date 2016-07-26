@@ -3,11 +3,10 @@
 namespace App\Providers;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
-use Laravel\Spark\Contracts\Interactions\Settings\Profile\UpdateContactInformation;
-use Laravel\Spark\Events\Profile\ContactInformationUpdated;
 use Laravel\Spark\Spark;
+use Laravel\Spark\Events\Profile\ContactInformationUpdated;
 use Laravel\Spark\Providers\AppServiceProvider as ServiceProvider;
+use Laravel\Spark\Contracts\Interactions\Settings\Profile\UpdateContactInformation;
 
 class SparkServiceProvider extends ServiceProvider
 {
@@ -62,21 +61,21 @@ class SparkServiceProvider extends ServiceProvider
 //            ->noCardUpFront()
             ->trialDays(10);
 
-        Spark::freePlan()
+        Spark::freePlan('Blogger')
             ->features([
-                'First', 'Second', 'Third'
+                'View all available project', 'Create a personal project', 'Communicate with other bloggers'
             ]);
 
-        Spark::plan('Silver', 'bloggerlist-silver')
-            ->price(10)
-            ->features([
-                'First', 'Second', 'Third'
-            ]);
+//        Spark::plan('Company Silver', 'bloggerlist-silver')
+//            ->price(10)
+//            ->features([
+//                'Create project for our bloggers', 'Max. 5 projects', 'Search through are list of bloggers'
+//            ]);
 
-        Spark::plan('Gold', 'bloggerlist-gold')
+        Spark::plan('Company', 'bloggerlist-gold')
             ->price(20)
             ->features([
-                'First', 'Second', 'Third'
+                'Create project for our bloggers', 'Search through are list of bloggers', 'Promote your events'
             ]);
     }
 
@@ -92,10 +91,12 @@ class SparkServiceProvider extends ServiceProvider
 
             $data = $request->all();
 
+            $type = $data['plan'] === 'free' ? 'blogger' : 'company';
+
             $user->forceFill([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'type' => 'company',
+                'type' => $type,
                 'password' => bcrypt($data['password']),
                 'last_read_announcements_at' => Carbon::now(),
                 'trial_ends_at' => Carbon::now()->addDays(Spark::trialDays()),

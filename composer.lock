@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "77fd2146e17d5e4f9e4547e3b6223010",
-    "content-hash": "b1cdc100b991c00990d44421623379d4",
+    "hash": "00c096a617467e6e6d3721b6b11d217d",
+    "content-hash": "d2b7d21b7a3ae052aeda66e2cffdddbb",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -382,6 +382,55 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2015-07-22 18:31:08"
+        },
+        {
+            "name": "gloudemans/notify",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Crinsane/LaravelNotify.git",
+                "reference": "e1320ecbf50c53ad211945b462e20302ab453c40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Crinsane/LaravelNotify/zipball/e1320ecbf50c53ad211945b462e20302ab453c40",
+                "reference": "e1320ecbf50c53ad211945b462e20302ab453c40",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "^5.1",
+                "illuminate/support": "^5.1",
+                "illuminate/view": "^5.1",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gloudemans\\Notify\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Gloudemans",
+                    "email": "robgloudemans@gmail.com"
+                }
+            ],
+            "description": "Laravel Notifications",
+            "keywords": [
+                "flashnotifictions",
+                "laravel",
+                "notifications",
+                "notify"
+            ],
+            "time": "2015-08-22 14:26:09"
         },
         {
             "name": "guzzlehttp/guzzle",

@@ -84,59 +84,142 @@
                     </p>
                 @endif
 
-                <table class="table table-borderless m-b-none">
-                    <thead></thead>
-                    <tbody>
-                        <tr v-for="plan in plansForActiveInterval">
-                            <!-- Plan Name -->
-                            <td>
-                                <div class="btn-table-align" @click="showPlanDetails(plan)">
-                                    <span style="cursor: pointer;">
-                                        <strong>@{{ plan.name }}</strong>
-                                    </span>
+                <div class="row">
+                    <div class="col-md-6" style="border-right: 1px solid #e7eaec;">
+                        <div class="row">
+                            <template v-for="plan in freePlans">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary btn-block dim" v-if="isSelected(plan)" disabled>
+                                        <i class="fa fa-btn fa-check"></i>You're a blogger!
+                                    </button>
+
+                                    <button class="btn btn-outline btn-primary btn-block dim" @click="selectPlan(plan)" v-else>
+                                        I am a blogger!
+                                    </button>
                                 </div>
-                            </td>
 
-                            <!-- Plan Features Button -->
-                            <td>
-                                <button class="btn btn-default m-l-sm" @click="showPlanDetails(plan)">
-                                    <i class="fa fa-btn fa-star-o"></i>Plan Features
-                                </button>
-                            </td>
-
-                            <!-- Plan Price -->
-                            <td>
-                                <div class="btn-table-align">
-                                    <span v-if="plan.price == 0">
-                                        Free
-                                    </span>
-
-                                    <span v-else>
-                                        @{{ plan.price | currency spark.currencySymbol }} / @{{ plan.interval | capitalize }}
-                                    </span>
+                                <div class="col-xs-10 col-xs-offset-1">
+                                    <ul class="list-group text-left m-t-lg" :class="{ 'selected' : isSelected(plan) }">
+                                        <li v-for="feature in plan.features" class="list-group-item">
+                                            <i class="fa fa-btn fa-star-o text-navy"></i>@{{ feature }}
+                                        </li>
+                                    </ul>
                                 </div>
-                            </td>
+                            </template>
+                        </div>
 
-                            <!-- Trial Days -->
-                            <td>
-                                <div class="btn-table-align" v-if="plan.trialDays">
-                                    @{{ plan.trialDays}} Day Trial
+                        {{--<table class="table table-borderless m-b-none">--}}
+                            {{--<thead></thead>--}}
+                            {{--<tbody>--}}
+                                {{--<tr v-for="plan in freePlans">--}}
+                                    {{--<!-- Plan Name -->--}}
+                                    {{--<td>--}}
+                                        {{--<div class="btn-table-align" @click="showPlanDetails(plan)">--}}
+                                            {{--<span style="cursor: pointer;">--}}
+                                                {{--<strong>@{{ plan.name }}</strong>--}}
+                                            {{--</span>--}}
+                                            {{--<span v-if="plan.price == 0">--}}
+                                                {{--Free--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Plan Features Button -->--}}
+                                    {{--<td>--}}
+                                        {{--<button class="btn btn-default m-l-sm" @click="showPlanDetails(plan)">--}}
+                                            {{--<i class="fa fa-btn fa-star-o"></i>Plan Features--}}
+                                        {{--</button>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Trial Days -->--}}
+                                    {{--<td>--}}
+                                        {{--<div class="btn-table-align" v-if="plan.trialDays">--}}
+                                            {{--@{{ plan.trialDays}} Day Trial--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Plan Select Button -->--}}
+                                    {{--<td class="text-right">--}}
+                                        {{--<button class="btn btn-primary btn-plan" v-if="isSelected(plan)" disabled>--}}
+                                            {{--<i class="fa fa-btn fa-check"></i>Selected--}}
+                                        {{--</button>--}}
+
+                                        {{--<button class="btn btn-outline btn-primary btn-plan" @click="selectPlan(plan)" v-else>--}}
+                                            {{--Select--}}
+                                        {{--</button>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <template v-for="plan in paidPlans">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary btn-block dim" v-if="isSelected(plan)" disabled>
+                                        <i class="fa fa-btn fa-check"></i>You're a company!
+                                    </button>
+
+                                    <button class="btn btn-outline btn-primary btn-block dim" @click="selectPlan(plan)" v-else>
+                                        I am a company!
+                                    </button>
                                 </div>
-                            </td>
+                                <div class="col-xs-10 col-xs-offset-1">
+                                    <ul class="list-group text-left m-t-lg" :class="{ 'selected' : isSelected(plan) }">
+                                        <li v-for="feature in plan.features" class="list-group-item">
+                                            <i class="fa fa-btn fa-star-o text-navy"></i>@{{ feature }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </template>
+                        </div>
 
-                            <!-- Plan Select Button -->
-                            <td class="text-right">
-                                <button class="btn btn-primary btn-plan" v-if="isSelected(plan)" disabled>
-                                    <i class="fa fa-btn fa-check"></i>Selected
-                                </button>
 
-                                <button class="btn btn-outline btn-primary btn-plan" @click="selectPlan(plan)" v-else>
-                                    Select
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        {{--<table class="table table-borderless m-b-none">--}}
+                            {{--<thead></thead>--}}
+                            {{--<tbody>--}}
+                                {{--<tr v-for="plan in paidPlans">--}}
+                                    {{--<!-- Plan Name -->--}}
+                                    {{--<td>--}}
+                                        {{--<div class="btn-table-align" @click="showPlanDetails(plan)">--}}
+                                            {{--<span style="cursor: pointer;">--}}
+                                                {{--<strong>@{{ plan.name }}</strong>--}}
+                                            {{--</span>--}}
+                                            {{--<span v-if="plan.price > 0">--}}
+                                                {{--@{{ plan.price | currency spark.currencySymbol }} / @{{ plan.interval | capitalize }}--}}
+                                            {{--</span>--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Plan Features Button -->--}}
+                                    {{--<td>--}}
+                                        {{--<button class="btn btn-default m-l-sm" @click="showPlanDetails(plan)">--}}
+                                            {{--<i class="fa fa-btn fa-star-o"></i>Plan Features--}}
+                                        {{--</button>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Trial Days -->--}}
+                                    {{--<td>--}}
+                                        {{--<div class="btn-table-align" v-if="plan.trialDays">--}}
+                                            {{--@{{ plan.trialDays}} Day Trial--}}
+                                        {{--</div>--}}
+                                    {{--</td>--}}
+
+                                    {{--<!-- Plan Select Button -->--}}
+                                    {{--<td class="text-right">--}}
+                                        {{--<button class="btn btn-primary btn-plan" v-if="isSelected(plan)" disabled>--}}
+                                            {{--<i class="fa fa-btn fa-check"></i>Selected--}}
+                                        {{--</button>--}}
+
+                                        {{--<button class="btn btn-outline btn-primary btn-plan" @click="selectPlan(plan)" v-else>--}}
+                                            {{--Select--}}
+                                        {{--</button>--}}
+                                    {{--</td>--}}
+                                {{--</tr>--}}
+                            {{--</tbody>--}}
+                        {{--</table>--}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

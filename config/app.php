@@ -163,6 +163,7 @@ return [
 
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
+        Gloudemans\Notify\LaravelNotifyServiceProvider::class,
 
     ],
 

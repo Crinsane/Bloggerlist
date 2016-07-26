@@ -12,8 +12,9 @@
                         <input type="hidden" v-model="id" value="{{ $project->id }}">
                         <div class="row">
 
-                            <!-- Project details -->
                             <div class="col-md-9">
+
+                                <!-- Project details -->
                                 <div class="ibox">
                                     <div class="ibox-title"><h5>Project details</h5></div>
                                     <div class="ibox-content">
@@ -48,6 +49,64 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Project Steps -->
+                                <div class="ibox">
+                                    <div class="ibox-title"><h5>Project steps</h5></div>
+                                    <div class="ibox-content">
+
+                                        <project-steps :user="user" :steps.sync="form.steps" :form="form" inline-template>
+
+                                            <div id="project-steps">
+                                                <div class="panel panel-default" v-for="step in form.steps">
+                                                    <div class="panel-heading">
+                                                        <div class="row">
+                                                            <div class="col-sm-2" style="padding-top: 3px;">
+                                                                <i class="fa fa-arrows project-step-handle"></i> Step @{{ $index + 1 }}
+                                                            </div>
+                                                            <div class="col-sm-9">
+                                                                <div class="form-group m-b-none" :class="{ 'has-error': hasError($index, 'title') }">
+                                                                    <input type="text" name="step-title" class="form-control input-sm" placeholder="Step title" v-model="step.title">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-1 text-right" style="padding-top: 3px;">
+                                                                <a href="#" @click.prevent="removeStep(step)"><i class="fa fa-times"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group m-b-none" :class="{ 'has-error': hasError($index, 'description') }">
+                                                            <textarea name="step-description" class="form-control" rows="3" placeholder="Step description" v-model="step.description"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary btn-sm" @click.prevent="addStep"><i class="fa fa-plus"></i> Add another step</button>
+
+                                        </project-steps>
+
+                                    </div>
+                                </div>
+
+                                <!-- Project images -->
+                                <div class="ibox">
+                                    <div class="ibox-title"><h5>Project images</h5></div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <project-image v-for="image in images" :image="image"></project-image>
+                                                <div v-for="file in files" class="pull-left project-image-thumbnail">
+                                                    <img :src="file.url" alt="Project image" class="img-thumbnail">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div id="project-images" class="dropzone"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <!-- Project meta -->
@@ -92,26 +151,6 @@
                                                     <i class="fa fa-btn fa-floppy-o"></i>Update project
                                                 </span>
                                             </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Project images -->
-                            <div class="col-md-9">
-                                <div class="ibox">
-                                    <div class="ibox-title"><h5>Project images</h5></div>
-                                    <div class="ibox-content">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <project-image v-for="image in images" :image="image"></project-image>
-                                                <div v-for="file in files" class="pull-left project-image-thumbnail">
-                                                    <img :src="file.url" alt="Project image" class="img-thumbnail">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div id="project-images" class="dropzone"></div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

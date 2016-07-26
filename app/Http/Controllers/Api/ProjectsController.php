@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Projects\Project;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class ProjectsController extends Controller
 {
+    /**
+     * Return a list of all project for the current user.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
-        return Project::with('category')->forUser(auth()->user())->get();
+        return response()->json(
+            Project::with('category')->forUser(auth()->user())->get()
+        );
     }
 }

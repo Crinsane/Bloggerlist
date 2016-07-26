@@ -51,7 +51,7 @@
                                                 <a href="#" @click.prevent="filterByCategory(project.category)" class="label" :class="project.category.slug">@{{ project.category.name }}</a>
                                             </td>
                                             <td class="project-title">
-                                                <a href="project_detail.html">@{{ project.title }}</a>
+                                                <a href="/projects/@{{ project.id }}">@{{ project.title }}</a>
                                                 <br/>
                                                 <small>Created @{{ project.created_at | date }}</small>
                                             </td>

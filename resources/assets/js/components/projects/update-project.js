@@ -9,7 +9,8 @@ Vue.component('update-project', {
                 description: '',
                 category_id: '',
                 reward: '',
-                location: ''
+                location: '',
+                steps: []
             }),
             dropZone: null,
             images: [],
@@ -24,6 +25,7 @@ Vue.component('update-project', {
     },
 
     ready() {
+        this.fetchProjectSteps();
         this.fetchProjectImages();
 
         this.dropZone = new Dropzone('div#project-images', {
@@ -43,6 +45,14 @@ Vue.component('update-project', {
     },
 
     methods: {
+
+        fetchProjectSteps() {
+            this.$http.get('/api/projects/'+this.id+'/steps')
+                .then(response => {
+                    this.form.steps = response.data;
+                });
+        },
+
         fetchProjectImages() {
             this.$http.get('/projects/'+this.id+'/media')
                 .then(response => {
@@ -53,7 +63,7 @@ Vue.component('update-project', {
         update() {
             Spark.put('/projects/'+this.id, this.form)
                 .then(response => {
-
+                    toastr.success('Your project has successfully been updated.');
                 });
         },
 

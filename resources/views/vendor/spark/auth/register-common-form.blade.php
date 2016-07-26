@@ -69,7 +69,7 @@
     <!-- Terms And Conditions -->
     <div v-if=" ! selectedPlan || selectedPlan.price == 0">
         <div class="form-group" :class="{'has-error': registerForm.errors.has('terms')}">
-            <div class="col-md-6 col-md-offset-4">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="terms" v-model="registerForm.terms">
@@ -84,7 +84,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-6 col-md-offset-4">
+            <div class="col-md-6 col-md-offset-3">
                 <button class="btn btn-primary" @click.prevent="register" :disabled="registerForm.busy">
                     <span v-if="registerForm.busy">
                         <i class="fa fa-btn fa-spinner fa-spin"></i>Registering

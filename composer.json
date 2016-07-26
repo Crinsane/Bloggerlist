@@ -14,7 +14,8 @@
         "laravel/spark": "*@dev",
         "mpociot/vat-calculator": "^2.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
-        "spatie/laravel-medialibrary": "^3.18"
+        "spatie/laravel-medialibrary": "^3.18",
+        "gloudemans/notify": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

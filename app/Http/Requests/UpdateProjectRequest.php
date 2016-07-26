@@ -27,6 +27,9 @@ class UpdateProjectRequest extends Request
             'title' => 'required',
             'description' => 'required',
             'category_id' => 'required',
+            'steps' => 'array',
+            'steps.*.title' => 'required',
+            'steps.*.description' => 'required',
         ];
     }
 
@@ -43,4 +46,20 @@ class UpdateProjectRequest extends Request
             'category_id.*' => 'Please select a category for the project.',
         ];
     }
+
+//    /**
+//     * Get all of the input and files for the request.
+//     *
+//     * @return array
+//     */
+//    public function all()
+//    {
+//        $all = parent::all();
+//
+//        $all['steps'] = array_map(function ($step) {
+//            return json_decode($step, true);
+//        }, $all['steps']);
+//
+//        return $all;
+//    }
 }

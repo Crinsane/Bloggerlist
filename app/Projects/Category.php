@@ -36,4 +36,14 @@ class Category extends Model
             $category->slug = str_slug($category->name);
         });
     }
+
+    /**
+     * A project category has many projects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }

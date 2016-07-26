@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Projects\Category;
 use App\Projects\Project;
+use Gloudemans\Notify\Notifications\AddsNotifications;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class ProjectsController extends Controller
 {
+    use AddsNotifications;
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +20,6 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-//        $projects = Project::forUser(auth()->user())->get();
-
         return view('projects.index');
     }
 
@@ -42,9 +43,17 @@ class ProjectsController extends Controller
      */
     public function store(Requests\CreateProjectRequest $request)
     {
-        $project = Project::createProjectForUser($request->user(), $request->only(['title', 'description', 'reward', 'category_id', 'location']));
+        $project = Project::createProjectForUser(
+            $request->user(), $request->only(['title', 'description', 'reward', 'category_id', 'location'])
+        );
 
-        $project->addImages($request->allFiles()['images']);
+        $project->addSteps(array_map(function ($step) {
+            return json_decode($step, true);
+        }, $request->get('steps')));
+
+        $project->addImages($request->file('images'));
+
+        $this->notifySuccess('Your new project has successfully been created.');
 
         return response()->json([
             'redirect' => route('projects.edit', $project)
@@ -85,6 +94,10 @@ class ProjectsController extends Controller
     public function update(Requests\UpdateProjectRequest $request, Project $project)
     {
         $project->update($request->only(['title', 'description', 'reward', 'category_id', 'location']));
+
+        $project->steps()->delete();
+
+        $project->addSteps($request->steps);
     }
 
     /**

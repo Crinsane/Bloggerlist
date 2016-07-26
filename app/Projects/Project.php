@@ -21,13 +21,23 @@ class Project extends Model implements HasMediaConversions
     protected $fillable = ['title', 'description', 'category_id', 'reward', 'location'];
 
     /**
-     * A projects belongs to a category.
+     * A project belongs to a category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * A project has many steps.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
     }
 
     /**
@@ -66,6 +76,23 @@ class Project extends Model implements HasMediaConversions
     }
 
     /**
+     * Add a step to the collection of steps.
+     *
+     * @param array $step
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function addStep($step)
+    {
+        $order = $this->steps()->count() + 1;
+
+        return $this->steps()->create([
+            'order' => $order,
+            'title' => $step['title'],
+            'description' => $step['description'],
+        ]);
+    }
+
+    /**
      * Add images to the images media collection.
      *
      * @param array $files
@@ -74,6 +101,18 @@ class Project extends Model implements HasMediaConversions
     {
         foreach ($files as $file) {
             $this->addImage($file);
+        }
+    }
+
+    /**
+     * Add steps to the project steps collection.
+     *
+     * @param array $steps
+     */
+    public function addSteps($steps)
+    {
+        foreach ($steps as $step) {
+            $this->addStep($step);
         }
     }
 

@@ -7181,6 +7181,9 @@ fieldset[disabled] .btn-danger-outline.active {
 .with-navbar {
   padding-top: 100px;
 }
+.panel {
+  overflow: hidden;
+}
 .panel-heading {
   font-size: 15px;
   font-weight: 400;
@@ -19357,6 +19360,10 @@ button.toast-close-button {
   font-size: 12px;
   line-height: 15px;
   text-indent: 0;
+  display: none;
+}
+.project-image-thumbnail:hover .project-image-delete {
+  display: block;
 }
 .projects-loading {
   min-height: 400px;
@@ -19385,6 +19392,10 @@ button.toast-close-button {
 }
 #project-steps .fa-times {
   color: #676a6c;
+}
+.list-group.selected .list-group-item {
+  border-color: #888888;
+  color: #888888;
 }
 
 /*# sourceMappingURL=app.css.map */

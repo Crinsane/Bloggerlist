@@ -60,10 +60,10 @@
                                                 <div class="panel panel-default" v-for="step in steps">
                                                     <div class="panel-heading">
                                                         <div class="row">
-                                                            <div class="col-sm-1" style="padding-top: 3px;">
+                                                            <div class="col-sm-2" style="padding-top: 3px;">
                                                                 <i class="fa fa-arrows project-step-handle"></i> Step @{{ $index + 1 }}
                                                             </div>
-                                                            <div class="col-sm-10">
+                                                            <div class="col-sm-9">
                                                                 <div class="form-group m-b-none" :class="{ 'has-error': hasError($index, 'title') }">
                                                                     <input type="text" name="step-title" class="form-control input-sm" placeholder="Step title" v-model="step.title">
                                                                 </div>
@@ -96,6 +96,7 @@
                                             <div class="col-md-6">
                                                 <div v-for="file in files" class="pull-left project-image-thumbnail">
                                                     <img :src="file.url" alt="Project image" class="img-thumbnail">
+                                                    <a href="#" class="btn btn-xs btn-danger project-image-delete" @click.prevent="deleteImage(file)"><i class="fa fa-times"></i></a>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

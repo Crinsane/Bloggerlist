@@ -39102,10 +39102,15 @@ Vue.component('create-project', {
             this.$http.post('/projects', this.gatherFormData()).then(function (response) {
                 this.form.finishProcessing();
 
-                // window.location = response.data.redirect;
+                window.location = response.data.redirect;
             }).catch(function (response) {
                 this.form.setErrors(response.data);
             });
+        },
+        deleteImage: function deleteImage(file) {
+            this.files.$remove(file);
+
+            this.dropZone.removeFile(file.file);
         },
 
 
@@ -39287,7 +39292,8 @@ Vue.component('update-project', {
                 description: '',
                 category_id: '',
                 reward: '',
-                location: ''
+                location: '',
+                steps: []
             }),
             dropZone: null,
             images: [],
@@ -39305,6 +39311,7 @@ Vue.component('update-project', {
     ready: function ready() {
         var _this = this;
 
+        this.fetchProjectSteps();
         this.fetchProjectImages();
 
         this.dropZone = new Dropzone('div#project-images', {
@@ -39323,15 +39330,24 @@ Vue.component('update-project', {
 
 
     methods: {
-        fetchProjectImages: function fetchProjectImages() {
+        fetchProjectSteps: function fetchProjectSteps() {
             var _this2 = this;
 
+            this.$http.get('/api/projects/' + this.id + '/steps').then(function (response) {
+                _this2.form.steps = response.data;
+            });
+        },
+        fetchProjectImages: function fetchProjectImages() {
+            var _this3 = this;
+
             this.$http.get('/projects/' + this.id + '/media').then(function (response) {
-                _this2.images = response.data;
+                _this3.images = response.data;
             });
         },
         update: function update() {
-            Spark.put('/projects/' + this.id, this.form).then(function (response) {});
+            Spark.put('/projects/' + this.id, this.form).then(function (response) {
+                toastr.success('Your project has successfully been updated.');
+            });
         },
         addImage: function addImage(file) {
             var data = new FormData();
@@ -39341,12 +39357,12 @@ Vue.component('update-project', {
             this.sendImage(data, file);
         },
         sendImage: function sendImage(data, file) {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$http.post('/projects/' + this.id + '/media', data).then(function (response) {
-                _this3.images.push(response.data);
+                _this4.images.push(response.data);
 
-                _this3.dropZone.removeFile(file);
+                _this4.dropZone.removeFile(file);
             });
         }
     }
@@ -39692,7 +39708,18 @@ Vue.component('spark-register-braintree', {
 var base = require('auth/register-stripe');
 
 Vue.component('spark-register-stripe', {
-    mixins: [base]
+    mixins: [base],
+
+    computed: {
+        /**
+         * Get all of the free plans.
+         */
+        freePlans: function freePlans() {
+            return _.filter(this.plans, function (plan) {
+                return plan.active && plan.price == 0;
+            });
+        }
+    }
 });
 
 },{"auth/register-stripe":101}],53:[function(require,module,exports){
