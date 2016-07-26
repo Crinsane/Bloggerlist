@@ -39392,10 +39392,37 @@ Vue.component('home', {
 Vue.component('favorite', {
     props: ['user', 'project', 'favorited'],
 
-    template: '\n        <button class="btn btn-info pull-right">\n            <span v-if="favorited"><i class="fa fa-btn fa-star"></i>Unfavorite</span>\n            <span v-else><i class="fa fa-btn fa-star-o"></i>Favorite</span>\n        </button>\n    ',
+    template: '\n        <button v-el:button class="btn btn-info pull-right" :class="{ \'btn-outline\' : !favorited }" @click="process">\n            <span v-if="favorited"><i class="fa fa-btn fa-star"></i>Unfavorite</span>\n            <span v-else><i class="fa fa-btn fa-star-o"></i>Favorite</span>\n        </button>\n    ',
 
     ready: function ready() {
         //
+    },
+
+
+    methods: {
+        process: function process() {
+            if (this.favorited) {
+                this.unfavorite();
+            } else {
+                this.favorite();
+            }
+        },
+        favorite: function favorite() {
+            var _this = this;
+
+            this.$http.post('/projects/' + this.project + '/favorite').then(function (response) {
+                _this.favorited = 1;
+                $(_this.$els.button).blur();
+            });
+        },
+        unfavorite: function unfavorite() {
+            var _this2 = this;
+
+            this.$http.delete('/projects/' + this.project + '/unfavorite').then(function (response) {
+                _this2.favorited = 0;
+                $(_this2.$els.button).blur();
+            });
+        }
     }
 });
 

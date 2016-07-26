@@ -45,7 +45,7 @@
                                 <project-unsubscribe :user="user" :project="{{ $project->id }}" v-if="subscribedToProject({{ $project->id }})"></project-unsubscribe>
                             </div>
                             <div class="col-lg-6">
-                                <favorite :user="user" :project="{{ $project->id }}"></favorite>
+                                <favorite :user="user" :project="{{ $project->id }}" :favorited="0"></favorite>
                             </div>
                         </div>
                         <div class="row m-t-sm">

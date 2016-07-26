@@ -13,7 +13,7 @@ class AddTypeTitleWebsiteDescriptionFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->after('id');
+            $table->string('type')->default('blogger')->after('id');
 
             $table->text('description')->nullable()->after('photo_url');
             $table->string('website')->nullable()->after('photo_url');
