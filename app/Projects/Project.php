@@ -97,6 +97,17 @@ class Project extends Model implements HasMediaConversions
     }
 
     /**
+     * Check if a project is owned by a user.
+     *
+     * @param \App\User $user
+     * @return bool
+     */
+    public function ownedBy(User $user)
+    {
+        return $this->user_id == $user->id;
+    }
+
+    /**
      * Add an image to the images collection.
      *
      * @param \Illuminate\Http\UploadedFile $file

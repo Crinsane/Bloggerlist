@@ -55,6 +55,12 @@ Vue.component('projects-list', {
             this.category = {};
         },
 
+        projectCompletionPercentage(project) {
+            if (project.subscribers.length == 0) return '0%';
+
+            return 100 * (project.bloggers / project.subscribers.length) + '%';
+        },
+
         refresh() {
             this.search = '';
             this.category = {};

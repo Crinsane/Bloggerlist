@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Projects\Project;
 use App\Http\Requests\Request;
 
 class UpdateProjectRequest extends Request
@@ -13,7 +14,7 @@ class UpdateProjectRequest extends Request
      */
     public function authorize()
     {
-        return $this->user()->type == 'company';
+        return \Gate::allows('update', $this->route('project'));
     }
 
     /**

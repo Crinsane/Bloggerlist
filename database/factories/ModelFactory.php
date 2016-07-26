@@ -29,9 +29,9 @@ $factory->define(App\Projects\Category::class, function (Faker\Generator $faker)
 $factory->define(App\Projects\Project::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence(3),
-        'description' => $faker->paragraph,
+        'description' => $faker->paragraph(mt_rand(10, 35)),
         'category_id' => $faker->randomElement(range(1, 7)),
-        'reward' => $faker->sentence,
+        'reward' => $faker->paragraph(mt_rand(2, 4)),
         'location' => $faker->city,
         'created_at' => $faker->dateTimeThisMonth,
     ];
@@ -41,6 +41,6 @@ $factory->define(App\Projects\Step::class, function (Faker\Generator $faker) {
     return [
         'order' => $faker->numberBetween(1, 999),
         'title' => $faker->sentence(3),
-        'description' => $faker->paragraph,
+        'description' => $faker->paragraph(mt_rand(2, 10)),
     ];
 });

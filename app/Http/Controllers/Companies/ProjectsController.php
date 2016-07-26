@@ -38,6 +38,8 @@ class ProjectsController extends Controller
      */
     public function create()
     {
+        $this->authorize('store');
+
         $categories = Category::all();
 
         return view('company.projects.create', compact('categories'));
@@ -87,6 +89,8 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
+        $this->authorize($project);
+
         $categories = Category::all();
 
         return view('company.projects.edit', compact('project', 'categories'));

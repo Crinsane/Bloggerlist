@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Projects\UserHasSubscribed;
 use App\Projects\Project;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class ProjectSubscriptionController extends Controller
     public function store(Project $project, Request $request)
     {
         $request->user()->subscribeForProjectWithMessage($project, $request->message);
+
+        event(new UserHasSubscribed($request->user(), $project));
     }
 
     /**

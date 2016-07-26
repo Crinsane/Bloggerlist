@@ -21,33 +21,37 @@
                                 <dl class="dl-horizontal">
                                     <dt>Created At:</dt> <dd>{{ $project->created_at->format('D, M j, Y h:i') }}</dd>
                                     <dt>Last updated:</dt> <dd>{{ $project->updated_at->format('D, M j, Y h:i') }}</dd>
-                                    <dt>Number of steps:</dt> <dd>{{ $project->steps->count() }}</dd>
+                                    <dt>Max. bloggers:</dt> <dd>1</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-7" id="cluster_info">
                                 <dl class="dl-horizontal" >
                                     <dt>Branch</dt> <dd><span class="label {{ $project->category->slug }}">{{ $project->category->name }}</span></dd>
                                     <dt>Location</dt> <dd>{{ $project->location }}</dd>
-                                    {{--<dt>Participants:</dt>--}}
-                                    {{--<dd class="project-people">--}}
-                                        {{--<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>--}}
-                                        {{--<a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>--}}
-                                        {{--<a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>--}}
-                                        {{--<a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>--}}
-                                        {{--<a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>--}}
-                                    {{--</dd>--}}
+                                    <dt>Subscriptions:</dt>
+                                    <dd {!! $project->subscribers->count() ? 'class="project-people"' : '' !!}>
+                                        @forelse ($project->subscribers as $subscriber)
+                                            <a href="#"><img alt="image" class="img-circle" src="{{ $subscriber->photoUrl }}"></a>
+                                        @empty
+                                            None yet
+                                        @endforelse
+                                    </dd>
                                 </dl>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <project-subscribe :user="user" :project="{{ $project->id }}" v-if="!subscribedToProject({{ $project->id }})"></project-subscribe>
-                                <project-unsubscribe :user="user" :project="{{ $project->id }}" v-if="subscribedToProject({{ $project->id }})"></project-unsubscribe>
+
+                        @unless ($project->ownedBy(auth()->user()))
+                            <div class="row m-t-lg m-b-lg">
+                                <div class="col-lg-6">
+                                    <project-subscribe :user="user" :project="{{ $project->id }}" v-if="!subscribedToProject({{ $project->id }})"></project-subscribe>
+                                    <project-unsubscribe :user="user" :project="{{ $project->id }}" v-if="subscribedToProject({{ $project->id }})"></project-unsubscribe>
+                                </div>
+                                <div class="col-lg-6">
+                                    <favorite :user="user" :project="{{ $project->id }}" :favorited="0"></favorite>
+                                </div>
                             </div>
-                            <div class="col-lg-6">
-                                <favorite :user="user" :project="{{ $project->id }}" :favorited="0"></favorite>
-                            </div>
-                        </div>
+                        @endunless
+
                         <div class="row m-t-sm">
                             <div class="col-lg-12">
                                 <div class="panel blank-panel">

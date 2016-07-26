@@ -21,6 +21,7 @@ class CreateProjectsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->text('reward')->nullable();
             $table->string('location')->nullable();
+            $table->integer('bloggers')->unsigned()->default(1);
             $table->timestamp('completed_at')->nullable();
 
             $table->softDeletes();

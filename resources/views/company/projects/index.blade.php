@@ -56,17 +56,13 @@
                                                 <small>Created @{{ project.created_at | date }}</small>
                                             </td>
                                             <td class="project-completion">
-                                                <small>Completion with: 48%</small>
+                                                <small>Completion with: @{{ projectCompletionPercentage(project) }}</small>
                                                 <div class="progress progress-mini">
-                                                    <div style="width: 48%;" class="progress-bar"></div>
+                                                    <div :style="{ width: projectCompletionPercentage(project) }" class="progress-bar"></div>
                                                 </div>
                                             </td>
                                             <td class="project-people">
-                                                <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-                                                <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-                                                <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-                                                <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-                                                <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+                                                <a href="#" v-for="subscriber in project.subscribers"><img alt="image" class="img-circle" :src="subscriber.photo_url"></a>
                                             </td>
                                             <td class="project-actions">
                                                 <a href="/company/projects/@{{ project.id }}" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View</a>
