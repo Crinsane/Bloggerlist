@@ -38,7 +38,7 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        $this->authorize('store');
+        $this->authorize('store', new Project);
 
         $categories = Category::all();
 
@@ -68,17 +68,6 @@ class ProjectsController extends Controller
         return response()->json([
             'redirect' => route('company.projects.edit', $project)
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserProjectSubscriptions extends Migration
+class CreateUserProjectSubscriptionsTable extends Migration
 {
     /**
      * Run the migrations.

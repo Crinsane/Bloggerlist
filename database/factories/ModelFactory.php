@@ -13,6 +13,7 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
+        'type' => $faker->randomElement(['company', 'blogger']),
         'name' => $faker->name,
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
@@ -42,5 +43,11 @@ $factory->define(App\Projects\Step::class, function (Faker\Generator $faker) {
         'order' => $faker->numberBetween(1, 999),
         'title' => $faker->sentence(3),
         'description' => $faker->paragraph(mt_rand(2, 10)),
+    ];
+});
+
+$factory->define(App\Branch::class, function (Faker\Generator $faker) {
+    return [
+        'name' => ucfirst($faker->word),
     ];
 });

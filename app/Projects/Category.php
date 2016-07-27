@@ -24,6 +24,13 @@ class Category extends Model
     protected $fillable = ['name'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
+
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -35,6 +42,17 @@ class Category extends Model
         static::creating(function (Category $category) {
             $category->slug = str_slug($category->name);
         });
+    }
+
+    /**
+     * Find a category by its slug.
+     *
+     * @param string $slug
+     * @return \App\Projects\Category
+     */
+    public static function findBySlug($slug)
+    {
+        return static::where('slug', $slug)->first();
     }
 
     /**

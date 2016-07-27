@@ -22,8 +22,6 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        return response()->json(
-            Project::with('category', 'subscribers')->forUser(auth()->user())->get()
-        );
+        return Project::with('category', 'subscribers')->forUser(auth()->user())->get();
     }
 }

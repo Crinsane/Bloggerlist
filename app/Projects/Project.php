@@ -21,6 +21,13 @@ class Project extends Model implements HasMediaConversions
     protected $fillable = ['title', 'description', 'category_id', 'reward', 'location'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
+
+    /**
      * A project belongs to a category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

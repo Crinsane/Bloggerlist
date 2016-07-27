@@ -8,7 +8,14 @@
             <div class="wrapper wrapper-content">
 
                 <div class="row">
-                    <div class="col-md-8"></div>
+                    <div class="col-md-8">
+                        @if (isset($category))
+                            <div style="margin-bottom: 22px;">
+                                <label>Filter by: </label>
+                                <span class="project-category-filter">{{ $category->name }} <a href="{{ route('projects.index') }}"><i class="fa fa-times"></i></a></span>
+                            </div>
+                        @endif
+                    </div>
                     <div class="col-md-4 project-pagination">
                         {{ $projects->links() }}
                     </div>
@@ -27,32 +34,30 @@
                                         <span class="label label-primary pull-right">NEW</span>
                                     @endif
                                     <h5>
-                                        <span class="label {{ $project->category->slug }}" style="margin-right: 8px;">{{ $project->category->name }}</span>
+                                        <a href="{{ route('projects.index', ['category' => $project->category->slug]) }}" class="label {{ $project->category->slug }}" style="margin-right: 8px;">{{ $project->category->name }}</a>
                                         <a href="{{ route('projects.show', $project) }}" style="color: #676a6c;">{{ $project->title }}</a>
                                     </h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <div class="team-members" style="height: 82px;">
-                                        @foreach($project->getMedia('images')->take(6) as $image)
-                                            <a href="{{ $image->getUrl() }}"><img alt="member" class="img-circle" src="{{ $image->getUrl('thumbnail') }}"></a>
-                                        @endforeach
+                                    <div class="team-members" style="height: 82px; overflow: hidden;">
+                                        @forelse($project->getMedia('images')->take(6) as $image)
+                                            <a href="{{ route('projects.show', $project) }}"><img alt="member" class="img-circle" src="{{ $image->getUrl('thumbnail') }}"></a>
+                                        @empty
+                                            <a href="{{ route('projects.show', $project) }}" style="display: block; width: 100%; height: 82px; background: url({{ $project->user->photoUrl }}) no-repeat center center; background-size: cover;"></a>
+                                        @endforelse
                                     </div>
                                     <h4>Project description:</h4>
-                                    <p>{{ $project->description }}</p>
+                                    <p>{{ str_limit($project->description, 150) }} <a href="{{ route('projects.show', $project) }}">more</a></p>
                                     <h4>Project reward:</h4>
-                                    <p>{{ $project->reward }}</p>
+                                    <p>{{ str_limit($project->reward, 90) }}</p>
                                     <hr>
                                     <div class="row m-t-sm">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-8">
                                             <div class="font-bold">COMPANY</div>
                                             {{ $project->user->title }}
                                         </div>
-                                        <div class="col-sm-3 text-right">
-                                            <div class="font-bold">LOCATION</div>
-                                            {{ $project->location }}
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <button class="btn btn-sm btn-primary pull-right m-t-sm"><i class="fa fa-btn fa-check"></i>Subscribe!</button>
+                                        <div class="col-sm-4">
+                                            <button class="btn btn-sm btn-primary pull-right m-t-sm"><i class="fa fa-btn fa-share"></i>View details</button>
                                         </div>
                                     </div>
                                 </div>

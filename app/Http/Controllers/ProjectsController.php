@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Projects\Category;
 use App\Projects\Project;
 
 class ProjectsController extends Controller
@@ -21,12 +22,17 @@ class ProjectsController extends Controller
      */
     public function index()
     {
+        $category = Category::findBySlug(request('category'));
+
         $projects = Project::with('category', 'user')
+            ->when($category, function ($query) use ($category) {
+                return $query->where('category_id', $category->id);
+            })
             ->whereNull('completed_at')
             ->latest()
             ->paginate(9);
 
-        return view('projects.index', compact('projects'));
+        return view('projects.index', compact('projects', 'category'));
     }
 
     /**

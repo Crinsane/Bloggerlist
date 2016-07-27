@@ -17,6 +17,13 @@ class Branch extends Model
     protected $fillable = ['name'];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
+
+    /**
      * The "booting" method of the model.
      *
      * @return void

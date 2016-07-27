@@ -11,7 +11,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-md">
-                                    {{--<a href="#" class="btn btn-white btn-xs pull-right">Edit project</a>--}}
+                                    @if ($project->ownedBy(auth()->user()))
+                                        <a href="{{ route('company.projects.edit', $project) }}" class="btn btn-white btn-xs pull-right">Edit project</a>
+                                    @endif
                                     <h2>{{ $project->title }}</h2>
                                 </div>
                             </div>

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserProjectFavorites extends Migration
+class CreateUserProjectFavoritesTable extends Migration
 {
     /**
      * Run the migrations.

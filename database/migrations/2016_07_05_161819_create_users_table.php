@@ -14,11 +14,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->string('type');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->rememberToken();
             $table->text('photo_url')->nullable();
+            $table->string('title')->nullable();
+            $table->string('website')->nullable();
+            $table->string('branch_id')->nullable();
+            $table->text('description')->nullable();
             $table->tinyInteger('uses_two_factor_auth')->default(0);
             $table->string('authy_id')->nullable();
             $table->string('country_code', 10)->nullable();
@@ -39,7 +45,14 @@ class CreateUsersTable extends Migration
             $table->string('vat_id', 50)->nullable();
             $table->text('extra_billing_information')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
+            $table->string('address')->nullable();
+            $table->string('address_line_2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip', 25)->nullable();
+            $table->string('country', 2)->nullable();
             $table->timestamp('last_read_announcements_at')->nullable();
+
             $table->timestamps();
         });
     }

@@ -23,6 +23,6 @@ class ProjectStepsController extends Controller
      */
     public function index(Project $project)
     {
-        return response()->json($project->steps);
+        return $project->steps;
     }
 }
