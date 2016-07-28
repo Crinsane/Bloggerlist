@@ -19032,6 +19032,9 @@ button.toast-close-button {
   border-color: #3b5998;
   color: #ffffff;
 }
+.btn-facebook:active {
+  color: #ffffff;
+}
 .btn-facebook:hover {
   background-color: #ffffff;
   color: #3b5998;
@@ -19039,6 +19042,9 @@ button.toast-close-button {
 .btn-twitter {
   background-color: #55acee;
   border-color: #55acee;
+  color: #ffffff;
+}
+.btn-twitter:active {
   color: #ffffff;
 }
 .btn-twitter:hover {
@@ -19050,6 +19056,9 @@ button.toast-close-button {
   border-color: #125688;
   color: #ffffff;
 }
+.btn-instagram:active {
+  color: #ffffff;
+}
 .btn-instagram:hover {
   background-color: #ffffff;
   color: #125688;
@@ -19057,6 +19066,9 @@ button.toast-close-button {
 .btn-youtube {
   background-color: #bb0000;
   border-color: #bb0000;
+  color: #ffffff;
+}
+.btn-youtube:active {
   color: #ffffff;
 }
 .btn-youtube:hover {

@@ -76,6 +76,26 @@ class User extends SparkUser
     }
 
     /**
+     * A user has one social media record.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function socialMedia()
+    {
+        return $this->hasOne(SocialMedia::class);
+    }
+
+    /**
+     * A user has many social media stats.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function socialMediaStats()
+    {
+        return $this->hasMany(SocialMediaStat::class);
+    }
+
+    /**
      * A user can favorite one or many projects.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

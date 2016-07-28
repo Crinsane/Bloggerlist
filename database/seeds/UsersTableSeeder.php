@@ -66,6 +66,10 @@ class UsersTableSeeder extends Seeder
             'updated_at'                 => '2016-07-23 16:39:01',
         ]);
 
+        \App\SocialMedia::forceCreate([
+            'user_id' => 1
+        ]);
+
         DB::table('subscriptions')->insert([
             'id'            => 1,
             'user_id'       => 1,
@@ -126,6 +130,10 @@ class UsersTableSeeder extends Seeder
             'last_read_announcements_at' => '2016-07-23 16:38:18',
             'created_at'                 => '2016-07-23 16:38:18',
             'updated_at'                 => '2016-07-23 16:39:01',
+        ]);
+
+        \App\SocialMedia::forceCreate([
+            'user_id' => 2
         ]);
     }
 

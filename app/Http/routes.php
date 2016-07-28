@@ -45,6 +45,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/users/{user}/follow', 'UserFollowersController@store');
     Route::delete('/users/{user}/unfollow', 'UserFollowersController@destroy');
 
+    Route::get('/oauth/facebook', function (\App\SocialMedia\Facebook $facebook) {
+        $facebook->handleCallback();
+
+        return redirect('/settings#/socialmedia');
+    });
+
+    Route::get('/oauth/twitter', function (\App\SocialMedia\Twitter $twitter) {
+        $twitter->handleCallback();
+
+        return redirect('/settings#/socialmedia');
+    });
+
 });
 
 /**

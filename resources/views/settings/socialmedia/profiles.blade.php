@@ -1,4 +1,4 @@
-<update-socialmedia-profiles :user="user" inline-template>
+{{--<update-socialmedia-profiles :user="user" inline-template>--}}
     <div class="ibox">
         <div class="ibox-title"><h5>Social Media Profiles</h5></div>
 
@@ -13,7 +13,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Facebook</label>
                     <div class="col-md-4">
-                        <button class="btn btn-block btn-facebook"><i class="fa fa-btn fa-facebook"></i>Authorize Facebook</button>
+                        <?php $facebook = app(\App\SocialMedia\Facebook::class);?>
+                        <a href="{{ $facebook->getLoginUrl() }}" class="btn btn-block btn-facebook"><i class="fa fa-btn fa-facebook"></i>Authorize Facebook</a>
                     </div>
                 </div>
 
@@ -21,7 +22,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Twitter</label>
                     <div class="col-md-4">
-                        <button class="btn btn-block btn-twitter"><i class="fa fa-btn fa-twitter"></i>Authorize Twitter</button>
+                        <?php $twitter = app(\App\SocialMedia\Twitter::class);?>
+                        <a href="{{ $twitter->getLoginUrl() }}" class="btn btn-block btn-twitter"><i class="fa fa-btn fa-twitter"></i>Authorize Twitter</a>
                     </div>
                 </div>
 
@@ -55,4 +57,4 @@
             </form>
         </div>
     </div>
-</update-socialmedia-profiles>
+{{--</update-socialmedia-profiles>--}}
