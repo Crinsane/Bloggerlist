@@ -16,6 +16,7 @@ class ProjectsControllerTest extends TestCase
         $this->be($user);
 
         $this->get('/api/projects')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => ['title', 'description', 'category_id', 'reward', 'location', 'category' => ['id', 'slug', 'name']]]);
     }
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class ProjectSubscriptionControllerTest extends TestCase
+class ProjectSubscriptionsControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -17,7 +17,7 @@ class ProjectSubscriptionControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->post('/projects/1/subscribe', ['message' => 'Subscription message']);
+        $this->post('/projects/1/subscribe', ['message' => 'Subscription message'])->assertResponseOk();
 
         $this->seeInDatabase('user_project_subscriptions', ['user_id' => 1, 'project_id' => 1, 'message' => 'Subscription message']);
     }
@@ -33,7 +33,7 @@ class ProjectSubscriptionControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->delete('/projects/1/unsubscribe');
+        $this->delete('/projects/1/unsubscribe')->assertResponseOk();
 
         $this->dontSeeInDatabase('user_project_subscriptions', ['user_id' => 1, 'project_id' => 1, 'message' => 'Subscription message']);
     }

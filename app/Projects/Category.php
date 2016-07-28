@@ -40,7 +40,13 @@ class Category extends Model
         parent::boot();
 
         static::creating(function (Category $category) {
-            $category->slug = str_slug($category->name);
+            $slug = str_slug($category->name);
+
+            if ($count = static::where('slug', $slug)->count()) {
+                $slug .= '-' . ++$count;
+            }
+
+            $category->slug = $slug;
         });
     }
 

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1094,7 +1094,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2519,7 +2518,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3001,7 +2999,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -19030,6 +19027,54 @@ button.toast-close-button {
   border-color: #828081;
   color: white;
 }
+.btn-facebook {
+  background-color: #3b5998;
+  border-color: #3b5998;
+  color: #ffffff;
+}
+.btn-facebook:active {
+  color: #ffffff;
+}
+.btn-facebook:hover {
+  background-color: #ffffff;
+  color: #3b5998;
+}
+.btn-twitter {
+  background-color: #55acee;
+  border-color: #55acee;
+  color: #ffffff;
+}
+.btn-twitter:active {
+  color: #ffffff;
+}
+.btn-twitter:hover {
+  background-color: #ffffff;
+  color: #55acee;
+}
+.btn-instagram {
+  background-color: #125688;
+  border-color: #125688;
+  color: #ffffff;
+}
+.btn-instagram:active {
+  color: #ffffff;
+}
+.btn-instagram:hover {
+  background-color: #ffffff;
+  color: #125688;
+}
+.btn-youtube {
+  background-color: #bb0000;
+  border-color: #bb0000;
+  color: #ffffff;
+}
+.btn-youtube:active {
+  color: #ffffff;
+}
+.btn-youtube:hover {
+  background-color: #ffffff;
+  color: #bb0000;
+}
 #toast-container > .toast {
   background-image: none !important;
 }
@@ -19140,6 +19185,9 @@ button.toast-close-button {
 .project-pagination .pagination {
   float: right;
   margin-top: 0;
+}
+.feed-element .media-body a {
+  color: #676a6c !important;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -15,6 +15,7 @@
     "metismenu": "^2.5.2",
     "moment": "^2.10.6",
     "pace": "HubSpot/pace",
+    "peity": "^3.2.0",
     "promise": "^7.1.1",
     "sortablejs": "^1.4.2",
     "sweetalert": "^1.1.3",

@@ -306,10 +306,10 @@ require('../../js/tab.js')
 require('../../js/affix.js')
 },{"../../js/affix.js":4,"../../js/alert.js":5,"../../js/button.js":6,"../../js/carousel.js":7,"../../js/collapse.js":8,"../../js/dropdown.js":9,"../../js/modal.js":10,"../../js/popover.js":11,"../../js/scrollspy.js":12,"../../js/tab.js":13,"../../js/tooltip.js":14,"../../js/transition.js":15}],4:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: affix.js v3.3.6
+ * Bootstrap: affix.js v3.3.7
  * http://getbootstrap.com/javascript/#affix
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -335,7 +335,7 @@ require('../../js/affix.js')
     this.checkPosition()
   }
 
-  Affix.VERSION  = '3.3.6'
+  Affix.VERSION  = '3.3.7'
 
   Affix.RESET    = 'affix affix-top affix-bottom'
 
@@ -470,10 +470,10 @@ require('../../js/affix.js')
 
 },{}],5:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: alert.js v3.3.6
+ * Bootstrap: alert.js v3.3.7
  * http://getbootstrap.com/javascript/#alerts
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -489,7 +489,7 @@ require('../../js/affix.js')
     $(el).on('click', dismiss, this.close)
   }
 
-  Alert.VERSION = '3.3.6'
+  Alert.VERSION = '3.3.7'
 
   Alert.TRANSITION_DURATION = 150
 
@@ -502,7 +502,7 @@ require('../../js/affix.js')
       selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
     }
 
-    var $parent = $(selector)
+    var $parent = $(selector === '#' ? [] : selector)
 
     if (e) e.preventDefault()
 
@@ -566,10 +566,10 @@ require('../../js/affix.js')
 
 },{}],6:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: button.js v3.3.6
+ * Bootstrap: button.js v3.3.7
  * http://getbootstrap.com/javascript/#buttons
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -586,7 +586,7 @@ require('../../js/affix.js')
     this.isLoading = false
   }
 
-  Button.VERSION  = '3.3.6'
+  Button.VERSION  = '3.3.7'
 
   Button.DEFAULTS = {
     loadingText: 'loading...'
@@ -608,10 +608,10 @@ require('../../js/affix.js')
 
       if (state == 'loadingText') {
         this.isLoading = true
-        $el.addClass(d).attr(d, d)
+        $el.addClass(d).attr(d, d).prop(d, true)
       } else if (this.isLoading) {
         this.isLoading = false
-        $el.removeClass(d).removeAttr(d)
+        $el.removeClass(d).removeAttr(d).prop(d, false)
       }
     }, this), 0)
   }
@@ -675,10 +675,15 @@ require('../../js/affix.js')
 
   $(document)
     .on('click.bs.button.data-api', '[data-toggle^="button"]', function (e) {
-      var $btn = $(e.target)
-      if (!$btn.hasClass('btn')) $btn = $btn.closest('.btn')
+      var $btn = $(e.target).closest('.btn')
       Plugin.call($btn, 'toggle')
-      if (!($(e.target).is('input[type="radio"]') || $(e.target).is('input[type="checkbox"]'))) e.preventDefault()
+      if (!($(e.target).is('input[type="radio"], input[type="checkbox"]'))) {
+        // Prevent double click on radios, and the double selections (so cancellation) on checkboxes
+        e.preventDefault()
+        // The target component still receive the focus
+        if ($btn.is('input,button')) $btn.trigger('focus')
+        else $btn.find('input:visible,button:visible').first().trigger('focus')
+      }
     })
     .on('focus.bs.button.data-api blur.bs.button.data-api', '[data-toggle^="button"]', function (e) {
       $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type))
@@ -688,10 +693,10 @@ require('../../js/affix.js')
 
 },{}],7:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: carousel.js v3.3.6
+ * Bootstrap: carousel.js v3.3.7
  * http://getbootstrap.com/javascript/#carousel
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -719,7 +724,7 @@ require('../../js/affix.js')
       .on('mouseleave.bs.carousel', $.proxy(this.cycle, this))
   }
 
-  Carousel.VERSION  = '3.3.6'
+  Carousel.VERSION  = '3.3.7'
 
   Carousel.TRANSITION_DURATION = 600
 
@@ -927,13 +932,14 @@ require('../../js/affix.js')
 
 },{}],8:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: collapse.js v3.3.6
+ * Bootstrap: collapse.js v3.3.7
  * http://getbootstrap.com/javascript/#collapse
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
+/* jshint latedef: false */
 
 +function ($) {
   'use strict';
@@ -957,7 +963,7 @@ require('../../js/affix.js')
     if (this.options.toggle) this.toggle()
   }
 
-  Collapse.VERSION  = '3.3.6'
+  Collapse.VERSION  = '3.3.7'
 
   Collapse.TRANSITION_DURATION = 350
 
@@ -1140,10 +1146,10 @@ require('../../js/affix.js')
 
 },{}],9:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: dropdown.js v3.3.6
+ * Bootstrap: dropdown.js v3.3.7
  * http://getbootstrap.com/javascript/#dropdowns
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -1160,7 +1166,7 @@ require('../../js/affix.js')
     $(element).on('click.bs.dropdown', this.toggle)
   }
 
-  Dropdown.VERSION = '3.3.6'
+  Dropdown.VERSION = '3.3.7'
 
   function getParent($this) {
     var selector = $this.attr('data-target')
@@ -1307,10 +1313,10 @@ require('../../js/affix.js')
 
 },{}],10:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: modal.js v3.3.6
+ * Bootstrap: modal.js v3.3.7
  * http://getbootstrap.com/javascript/#modals
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -1341,7 +1347,7 @@ require('../../js/affix.js')
     }
   }
 
-  Modal.VERSION  = '3.3.6'
+  Modal.VERSION  = '3.3.7'
 
   Modal.TRANSITION_DURATION = 300
   Modal.BACKDROP_TRANSITION_DURATION = 150
@@ -1448,7 +1454,9 @@ require('../../js/affix.js')
     $(document)
       .off('focusin.bs.modal') // guard against infinite focus loop
       .on('focusin.bs.modal', $.proxy(function (e) {
-        if (this.$element[0] !== e.target && !this.$element.has(e.target).length) {
+        if (document !== e.target &&
+            this.$element[0] !== e.target &&
+            !this.$element.has(e.target).length) {
           this.$element.trigger('focus')
         }
       }, this))
@@ -1646,10 +1654,10 @@ require('../../js/affix.js')
 
 },{}],11:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: popover.js v3.3.6
+ * Bootstrap: popover.js v3.3.7
  * http://getbootstrap.com/javascript/#popovers
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -1666,7 +1674,7 @@ require('../../js/affix.js')
 
   if (!$.fn.tooltip) throw new Error('Popover requires tooltip.js')
 
-  Popover.VERSION  = '3.3.6'
+  Popover.VERSION  = '3.3.7'
 
   Popover.DEFAULTS = $.extend({}, $.fn.tooltip.Constructor.DEFAULTS, {
     placement: 'right',
@@ -1756,10 +1764,10 @@ require('../../js/affix.js')
 
 },{}],12:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: scrollspy.js v3.3.6
+ * Bootstrap: scrollspy.js v3.3.7
  * http://getbootstrap.com/javascript/#scrollspy
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -1785,7 +1793,7 @@ require('../../js/affix.js')
     this.process()
   }
 
-  ScrollSpy.VERSION  = '3.3.6'
+  ScrollSpy.VERSION  = '3.3.7'
 
   ScrollSpy.DEFAULTS = {
     offset: 10
@@ -1930,10 +1938,10 @@ require('../../js/affix.js')
 
 },{}],13:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: tab.js v3.3.6
+ * Bootstrap: tab.js v3.3.7
  * http://getbootstrap.com/javascript/#tabs
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -1950,7 +1958,7 @@ require('../../js/affix.js')
     // jscs:enable requireDollarBeforejQueryAssignment
   }
 
-  Tab.VERSION = '3.3.6'
+  Tab.VERSION = '3.3.7'
 
   Tab.TRANSITION_DURATION = 150
 
@@ -2087,11 +2095,11 @@ require('../../js/affix.js')
 
 },{}],14:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: tooltip.js v3.3.6
+ * Bootstrap: tooltip.js v3.3.7
  * http://getbootstrap.com/javascript/#tooltip
  * Inspired by the original jQuery.tipsy by Jason Frame
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -2114,7 +2122,7 @@ require('../../js/affix.js')
     this.init('tooltip', element, options)
   }
 
-  Tooltip.VERSION  = '3.3.6'
+  Tooltip.VERSION  = '3.3.7'
 
   Tooltip.TRANSITION_DURATION = 150
 
@@ -2405,9 +2413,11 @@ require('../../js/affix.js')
 
     function complete() {
       if (that.hoverState != 'in') $tip.detach()
-      that.$element
-        .removeAttr('aria-describedby')
-        .trigger('hidden.bs.' + that.type)
+      if (that.$element) { // TODO: Check whether guarding this code with this `if` is really necessary.
+        that.$element
+          .removeAttr('aria-describedby')
+          .trigger('hidden.bs.' + that.type)
+      }
       callback && callback()
     }
 
@@ -2450,7 +2460,10 @@ require('../../js/affix.js')
       // width and height are missing in IE8, so compute them manually; see https://github.com/twbs/bootstrap/issues/14093
       elRect = $.extend({}, elRect, { width: elRect.right - elRect.left, height: elRect.bottom - elRect.top })
     }
-    var elOffset  = isBody ? { top: 0, left: 0 } : $element.offset()
+    var isSvg = window.SVGElement && el instanceof window.SVGElement
+    // Avoid using $.offset() on SVGs since it gives incorrect results in jQuery 3.
+    // See https://github.com/twbs/bootstrap/issues/20280
+    var elOffset  = isBody ? { top: 0, left: 0 } : (isSvg ? null : $element.offset())
     var scroll    = { scroll: isBody ? document.documentElement.scrollTop || document.body.scrollTop : $element.scrollTop() }
     var outerDims = isBody ? { width: $(window).width(), height: $(window).height() } : null
 
@@ -2566,6 +2579,7 @@ require('../../js/affix.js')
       that.$tip = null
       that.$arrow = null
       that.$viewport = null
+      that.$element = null
     })
   }
 
@@ -2603,10 +2617,10 @@ require('../../js/affix.js')
 
 },{}],15:[function(require,module,exports){
 /* ========================================================================
- * Bootstrap: transition.js v3.3.6
+ * Bootstrap: transition.js v3.3.7
  * http://getbootstrap.com/javascript/#transitions
  * ========================================================================
- * Copyright 2011-2015 Twitter, Inc.
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * ======================================================================== */
 
@@ -20387,6 +20401,391 @@ return jQuery;
 }).call(this);
 
 },{}],23:[function(require,module,exports){
+// Peity jQuery plugin version 3.2.0
+// (c) 2015 Ben Pickles
+//
+// http://benpickles.github.io/peity
+//
+// Released under MIT license.
+(function($, document, Math, undefined) {
+  var peity = $.fn.peity = function(type, options) {
+    if (svgSupported) {
+      this.each(function() {
+        var $this = $(this)
+        var chart = $this.data('_peity')
+
+        if (chart) {
+          if (type) chart.type = type
+          $.extend(chart.opts, options)
+        } else {
+          chart = new Peity(
+            $this,
+            type,
+            $.extend({},
+              peity.defaults[type],
+              $this.data('peity'),
+              options)
+          )
+
+          $this
+            .change(function() { chart.draw() })
+            .data('_peity', chart)
+        }
+
+        chart.draw()
+      });
+    }
+
+    return this;
+  };
+
+  var Peity = function($el, type, opts) {
+    this.$el = $el
+    this.type = type
+    this.opts = opts
+  }
+
+  var PeityPrototype = Peity.prototype
+
+  var svgElement = PeityPrototype.svgElement = function(tag, attrs) {
+    return $(
+      document.createElementNS('http://www.w3.org/2000/svg', tag)
+    ).attr(attrs)
+  }
+
+  // https://gist.github.com/madrobby/3201472
+  var svgSupported = 'createElementNS' in document && svgElement('svg', {})[0].createSVGRect
+
+  PeityPrototype.draw = function() {
+    var opts = this.opts
+    peity.graphers[this.type].call(this, opts)
+    if (opts.after) opts.after.call(this, opts)
+  }
+
+  PeityPrototype.fill = function() {
+    var fill = this.opts.fill
+
+    return $.isFunction(fill)
+      ? fill
+      : function(_, i) { return fill[i % fill.length] }
+  }
+
+  PeityPrototype.prepare = function(width, height) {
+    if (!this.$svg) {
+      this.$el.hide().after(
+        this.$svg = svgElement('svg', {
+          "class": "peity"
+        })
+      )
+    }
+
+    return this.$svg
+      .empty()
+      .data('peity', this)
+      .attr({
+        height: height,
+        width: width
+      })
+  }
+
+  PeityPrototype.values = function() {
+    return $.map(this.$el.text().split(this.opts.delimiter), function(value) {
+      return parseFloat(value)
+    })
+  }
+
+  peity.defaults = {}
+  peity.graphers = {}
+
+  peity.register = function(type, defaults, grapher) {
+    this.defaults[type] = defaults
+    this.graphers[type] = grapher
+  }
+
+  peity.register(
+    'pie',
+    {
+      fill: ['#ff9900', '#fff4dd', '#ffc66e'],
+      radius: 8
+    },
+    function(opts) {
+      if (!opts.delimiter) {
+        var delimiter = this.$el.text().match(/[^0-9\.]/)
+        opts.delimiter = delimiter ? delimiter[0] : ","
+      }
+
+      var values = $.map(this.values(), function(n) {
+        return n > 0 ? n : 0
+      })
+
+      if (opts.delimiter == "/") {
+        var v1 = values[0]
+        var v2 = values[1]
+        values = [v1, Math.max(0, v2 - v1)]
+      }
+
+      var i = 0
+      var length = values.length
+      var sum = 0
+
+      for (; i < length; i++) {
+        sum += values[i]
+      }
+
+      if (!sum) {
+        length = 2
+        sum = 1
+        values = [0, 1]
+      }
+
+      var diameter = opts.radius * 2
+
+      var $svg = this.prepare(
+        opts.width || diameter,
+        opts.height || diameter
+      )
+
+      var width = $svg.width()
+        , height = $svg.height()
+        , cx = width / 2
+        , cy = height / 2
+
+      var radius = Math.min(cx, cy)
+        , innerRadius = opts.innerRadius
+
+      if (this.type == 'donut' && !innerRadius) {
+        innerRadius = radius * 0.5
+      }
+
+      var pi = Math.PI
+      var fill = this.fill()
+
+      var scale = this.scale = function(value, radius) {
+        var radians = value / sum * pi * 2 - pi / 2
+
+        return [
+          radius * Math.cos(radians) + cx,
+          radius * Math.sin(radians) + cy
+        ]
+      }
+
+      var cumulative = 0
+
+      for (i = 0; i < length; i++) {
+        var value = values[i]
+          , portion = value / sum
+          , $node
+
+        if (portion == 0) continue
+
+        if (portion == 1) {
+          if (innerRadius) {
+            var x2 = cx - 0.01
+              , y1 = cy - radius
+              , y2 = cy - innerRadius
+
+            $node = svgElement('path', {
+              d: [
+                'M', cx, y1,
+                'A', radius, radius, 0, 1, 1, x2, y1,
+                'L', x2, y2,
+                'A', innerRadius, innerRadius, 0, 1, 0, cx, y2
+              ].join(' ')
+            })
+          } else {
+            $node = svgElement('circle', {
+              cx: cx,
+              cy: cy,
+              r: radius
+            })
+          }
+        } else {
+          var cumulativePlusValue = cumulative + value
+
+          var d = ['M'].concat(
+            scale(cumulative, radius),
+            'A', radius, radius, 0, portion > 0.5 ? 1 : 0, 1,
+            scale(cumulativePlusValue, radius),
+            'L'
+          )
+
+          if (innerRadius) {
+            d = d.concat(
+              scale(cumulativePlusValue, innerRadius),
+              'A', innerRadius, innerRadius, 0, portion > 0.5 ? 1 : 0, 0,
+              scale(cumulative, innerRadius)
+            )
+          } else {
+            d.push(cx, cy)
+          }
+
+          cumulative += value
+
+          $node = svgElement('path', {
+            d: d.join(" ")
+          })
+        }
+
+        $node.attr('fill', fill.call(this, value, i, values))
+
+        $svg.append($node)
+      }
+    }
+  )
+
+  peity.register(
+    'donut',
+    $.extend(true, {}, peity.defaults.pie),
+    function(opts) {
+      peity.graphers.pie.call(this, opts)
+    }
+  )
+
+  peity.register(
+    "line",
+    {
+      delimiter: ",",
+      fill: "#c6d9fd",
+      height: 16,
+      min: 0,
+      stroke: "#4d89f9",
+      strokeWidth: 1,
+      width: 32
+    },
+    function(opts) {
+      var values = this.values()
+      if (values.length == 1) values.push(values[0])
+      var max = Math.max.apply(Math, opts.max == undefined ? values : values.concat(opts.max))
+        , min = Math.min.apply(Math, opts.min == undefined ? values : values.concat(opts.min))
+
+      var $svg = this.prepare(opts.width, opts.height)
+        , strokeWidth = opts.strokeWidth
+        , width = $svg.width()
+        , height = $svg.height() - strokeWidth
+        , diff = max - min
+
+      var xScale = this.x = function(input) {
+        return input * (width / (values.length - 1))
+      }
+
+      var yScale = this.y = function(input) {
+        var y = height
+
+        if (diff) {
+          y -= ((input - min) / diff) * height
+        }
+
+        return y + strokeWidth / 2
+      }
+
+      var zero = yScale(Math.max(min, 0))
+        , coords = [0, zero]
+
+      for (var i = 0; i < values.length; i++) {
+        coords.push(
+          xScale(i),
+          yScale(values[i])
+        )
+      }
+
+      coords.push(width, zero)
+
+      if (opts.fill) {
+        $svg.append(
+          svgElement('polygon', {
+            fill: opts.fill,
+            points: coords.join(' ')
+          })
+        )
+      }
+
+      if (strokeWidth) {
+        $svg.append(
+          svgElement('polyline', {
+            fill: 'none',
+            points: coords.slice(2, coords.length - 2).join(' '),
+            stroke: opts.stroke,
+            'stroke-width': strokeWidth,
+            'stroke-linecap': 'square'
+          })
+        )
+      }
+    }
+  );
+
+  peity.register(
+    'bar',
+    {
+      delimiter: ",",
+      fill: ["#4D89F9"],
+      height: 16,
+      min: 0,
+      padding: 0.1,
+      width: 32
+    },
+    function(opts) {
+      var values = this.values()
+        , max = Math.max.apply(Math, opts.max == undefined ? values : values.concat(opts.max))
+        , min = Math.min.apply(Math, opts.min == undefined ? values : values.concat(opts.min))
+
+      var $svg = this.prepare(opts.width, opts.height)
+        , width = $svg.width()
+        , height = $svg.height()
+        , diff = max - min
+        , padding = opts.padding
+        , fill = this.fill()
+
+      var xScale = this.x = function(input) {
+        return input * width / values.length
+      }
+
+      var yScale = this.y = function(input) {
+        return height - (
+          diff
+            ? ((input - min) / diff) * height
+            : 1
+        )
+      }
+
+      for (var i = 0; i < values.length; i++) {
+        var x = xScale(i + padding)
+          , w = xScale(i + 1 - padding) - x
+          , value = values[i]
+          , valueY = yScale(value)
+          , y1 = valueY
+          , y2 = valueY
+          , h
+
+        if (!diff) {
+          h = 1
+        } else if (value < 0) {
+          y1 = yScale(Math.min(max, 0))
+        } else {
+          y2 = yScale(Math.max(min, 0))
+        }
+
+        h = y2 - y1
+
+        if (h == 0) {
+          h = 1
+          if (max > 0 && diff) y1--
+        }
+
+        $svg.append(
+          svgElement('rect', {
+            fill: fill.call(this, value, i, values),
+            x: x,
+            y: y1,
+            width: w,
+            height: h
+          })
+        )
+      }
+    }
+  );
+})(jQuery, document, Math);
+
+},{}],24:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -20507,12 +20906,12 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib')
 
-},{"./lib":29}],25:[function(require,module,exports){
+},{"./lib":30}],26:[function(require,module,exports){
 'use strict';
 
 var asap = require('asap/raw');
@@ -20727,7 +21126,7 @@ function doResolve(fn, promise) {
   }
 }
 
-},{"asap/raw":2}],26:[function(require,module,exports){
+},{"asap/raw":2}],27:[function(require,module,exports){
 'use strict';
 
 var Promise = require('./core.js');
@@ -20742,7 +21141,7 @@ Promise.prototype.done = function (onFulfilled, onRejected) {
   });
 };
 
-},{"./core.js":25}],27:[function(require,module,exports){
+},{"./core.js":26}],28:[function(require,module,exports){
 'use strict';
 
 //This file contains the ES6 extensions to the core Promises/A+ API
@@ -20851,7 +21250,7 @@ Promise.prototype['catch'] = function (onRejected) {
   return this.then(null, onRejected);
 };
 
-},{"./core.js":25}],28:[function(require,module,exports){
+},{"./core.js":26}],29:[function(require,module,exports){
 'use strict';
 
 var Promise = require('./core.js');
@@ -20869,7 +21268,7 @@ Promise.prototype['finally'] = function (f) {
   });
 };
 
-},{"./core.js":25}],29:[function(require,module,exports){
+},{"./core.js":26}],30:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./core.js');
@@ -20879,7 +21278,7 @@ require('./es6-extensions.js');
 require('./node-extensions.js');
 require('./synchronous.js');
 
-},{"./core.js":25,"./done.js":26,"./es6-extensions.js":27,"./finally.js":28,"./node-extensions.js":30,"./synchronous.js":31}],30:[function(require,module,exports){
+},{"./core.js":26,"./done.js":27,"./es6-extensions.js":28,"./finally.js":29,"./node-extensions.js":31,"./synchronous.js":32}],31:[function(require,module,exports){
 'use strict';
 
 // This file contains then/promise specific extensions that are only useful
@@ -21011,7 +21410,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
   });
 }
 
-},{"./core.js":25,"asap":1}],31:[function(require,module,exports){
+},{"./core.js":26,"asap":1}],32:[function(require,module,exports){
 'use strict';
 
 var Promise = require('./core.js');
@@ -21075,7 +21474,7 @@ Promise.disableSynchronous = function() {
   Promise.prototype.getState = undefined;
 };
 
-},{"./core.js":25}],32:[function(require,module,exports){
+},{"./core.js":26}],33:[function(require,module,exports){
 /**!
  * Sortable
  * @author	RubaXa   <trash@rubaxa.org>
@@ -22326,7 +22725,7 @@ Promise.disableSynchronous = function() {
 	return Sortable;
 });
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*
  * Toastr
  * Copyright 2012-2015
@@ -22763,7 +23162,7 @@ Promise.disableSynchronous = function() {
     }
 }));
 
-},{"jquery":18}],34:[function(require,module,exports){
+},{"jquery":18}],35:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -24313,7 +24712,7 @@ Promise.disableSynchronous = function() {
   }
 }.call(this));
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  * IPv6 Support
@@ -24500,7 +24899,7 @@ Promise.disableSynchronous = function() {
   };
 }));
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  * Second Level Domain (SLD) Support
@@ -24742,7 +25141,7 @@ Promise.disableSynchronous = function() {
   return SLD;
 }));
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /*!
  * URI.js - Mutating URLs
  *
@@ -26954,7 +27353,7 @@ Promise.disableSynchronous = function() {
   return URI;
 }));
 
-},{"./IPv6":35,"./SecondLevelDomains":36,"./punycode":38}],38:[function(require,module,exports){
+},{"./IPv6":36,"./SecondLevelDomains":37,"./punycode":39}],39:[function(require,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.4.0 by @mathias */
 ;(function(root) {
@@ -27491,7 +27890,7 @@ Promise.disableSynchronous = function() {
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 /*!
  * vue-resource v0.7.4
  * https://github.com/vuejs/vue-resource
@@ -28868,7 +29267,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 module.exports = plugin;
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v1.0.26
@@ -38945,7 +39344,7 @@ setTimeout(function () {
 
 module.exports = Vue;
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":23}],41:[function(require,module,exports){
+},{"_process":24}],42:[function(require,module,exports){
 'use strict';
 
 /*
@@ -38973,6 +39372,7 @@ require('spark-bootstrap');
 
 require('metismenu');
 require('jquery-slimscroll');
+require('peity');
 
 /**
  * Require sortable
@@ -39015,7 +39415,72 @@ var app = new Vue({
   mixins: [require('spark')]
 });
 
-},{"./components/bootstrap":42,"./inspinia":53,"dropzone":16,"jquery-slimscroll":17,"metismenu":20,"pace":22,"sortablejs":32,"spark":166,"spark-bootstrap":165,"toastr":33}],42:[function(require,module,exports){
+},{"./components/bootstrap":44,"./inspinia":59,"dropzone":16,"jquery-slimscroll":17,"metismenu":20,"pace":22,"peity":23,"sortablejs":33,"spark":172,"spark-bootstrap":171,"toastr":34}],43:[function(require,module,exports){
+'use strict';
+
+Vue.component('activity-feed', {
+    props: ['user', 'userId'],
+
+    data: function data() {
+        return {
+            currentPage: 0,
+            totalPages: 1,
+            activities: [],
+            fetching: true
+        };
+    },
+
+
+    computed: {
+        hasMore: function hasMore() {
+            return this.currentPage < this.totalPages;
+        }
+    },
+
+    template: '\n        <div>\n            <div class="feed-activity-list">\n            \n                <div class="feed-element" v-for="activity in activities">\n                    <a href="#" class="pull-left">\n                        <img alt="image" class="img-circle" :src="activity.user.photo_url">\n                    </a>\n                    <div class="media-body">\n                        <small class="pull-right">{{ activity.created_at | relative }} ago</small>\n                        {{{ activity.title }}}<br>\n                        <small class="text-muted">{{ activity.created_at | human }}</small>\n                        <!--<div class="actions">-->\n                            <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like</a>-->\n                            <!--<a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> Love</a>-->\n                        <!--</div>-->\n                        <!--<div class="well">-->\n                            <!--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.-->\n                            <!--Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).-->\n                        <!--</div>-->\n                        <!--<div class="pull-right">-->\n                            <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like</a>-->\n                            <!--<a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>-->\n                            <!--<a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Message</a>-->\n                        <!--</div>-->\n                    </div>\n                </div>\n                \n            </div>\n            \n            <button class="btn btn-primary btn-block m" style="margin-left: 0;" @click.prevent="fetchActivityFeed" :disabled="fetching" v-if="hasMore">\n                <span v-if="fetching"><i class="fa fa-spinner fa-spin"></i> Show More</span>\n                <span v-else><i class="fa fa-arrow-down"></i> Show More</span>\n            </button>\n        </div>\n    ',
+
+    ready: function ready() {
+        this.fetchActivityFeed();
+    },
+
+
+    methods: {
+
+        // Fetch the activity feed for the given user
+        fetchActivityFeed: function fetchActivityFeed() {
+            var _this = this;
+
+            this.$http.get('/api/users/' + this.userId + '/activity', { page: this.currentPage + 1 }).then(function (response) {
+                _this.currentPage = response.data.current_page;
+                _this.totalPages = response.data.last_page;
+                _this.activities = _this.activities.concat(response.data.data);
+                _this.fetching = false;
+            });
+        }
+    },
+
+    filters: {
+        human: function human(value) {
+            var formatDate = moment.utc(value).local();
+            var format = '';
+
+            if (formatDate.diff(moment(), 'days') == 0) {
+                format += 'today ';
+            } else if (moment().diff(formatDate, 'days') == 1) {
+                format += 'yesterday ';
+            } else {
+                format += formatDate.fromNow();
+            }
+
+            var time = formatDate.format('hh:mm');
+            var date = formatDate.format('DD-MM-YYYY');
+
+            return format + ' at ' + time + ' - ' + date;
+        }
+    }
+});
+
+},{}],44:[function(require,module,exports){
 'use strict';
 
 /*
@@ -39045,7 +39510,15 @@ require('./projects/project-subscribe');
 require('./projects/project-unsubscribe');
 require('./projects/favorite');
 
-},{"./../spark-components/bootstrap":56,"./company/projects/create-project":43,"./company/projects/project-image":44,"./company/projects/project-steps":45,"./company/projects/projects-list":46,"./company/projects/update-project":47,"./home":48,"./projects/favorite":49,"./projects/project-subscribe":50,"./projects/project-unsubscribe":51,"./settings/profile/update-profile-details":52}],43:[function(require,module,exports){
+require('./users/follow');
+
+require('./activity-feed');
+require('./projects-feed');
+
+require('./dashboard/daily-feed');
+require('./dashboard/subscribed-projects');
+
+},{"./../spark-components/bootstrap":62,"./activity-feed":43,"./company/projects/create-project":45,"./company/projects/project-image":46,"./company/projects/project-steps":47,"./company/projects/projects-list":48,"./company/projects/update-project":49,"./dashboard/daily-feed":50,"./dashboard/subscribed-projects":51,"./home":52,"./projects-feed":53,"./projects/favorite":54,"./projects/project-subscribe":55,"./projects/project-unsubscribe":56,"./settings/profile/update-profile-details":57,"./users/follow":58}],45:[function(require,module,exports){
 'use strict';
 
 Vue.component('create-project', {
@@ -39134,7 +39607,7 @@ Vue.component('create-project', {
     }
 });
 
-},{}],44:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 Vue.component('project-image', {
@@ -39159,7 +39632,7 @@ Vue.component('project-image', {
     }
 });
 
-},{}],45:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 'use strict';
 
 Vue.component('project-steps', {
@@ -39193,7 +39666,7 @@ Vue.component('project-steps', {
     }
 });
 
-},{}],46:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 Vue.component('projects-list', {
@@ -39276,7 +39749,7 @@ Vue.component('projects-list', {
     }
 });
 
-},{}],47:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 'use strict';
 
 Vue.component('update-project', {
@@ -39366,7 +39839,121 @@ Vue.component('update-project', {
     }
 });
 
-},{}],48:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
+'use strict';
+
+Vue.component('daily-feed', {
+    props: ['user'],
+
+    data: function data() {
+        return {
+            currentPage: 0,
+            totalPages: 1,
+            activities: [],
+            fetching: true,
+            loading: true
+        };
+    },
+
+
+    computed: {
+        hasMore: function hasMore() {
+            return this.currentPage < this.totalPages;
+        }
+    },
+
+    template: '\n        <div class="ibox float-e-margins">\n            <div class="ibox-title">\n                <h5>Your daily feed</h5>\n            </div>\n            <div class="ibox-content">\n                <div style="padding: 100px 0;" v-if="loading">\n                    <h4 class="text-center">Loading feed...</h4>\n                    <div class="sk-spinner sk-spinner-three-bounce">\n                        <div class="sk-bounce1"></div>\n                        <div class="sk-bounce2"></div>\n                        <div class="sk-bounce3"></div>\n                    </div>\n                </div>\n                \n                <div v-else>\n                    <div class="feed-activity-list">\n                    \n                        <div class="feed-element" v-for="activity in activities">\n                            <a href="#" class="pull-left">\n                                <img alt="image" class="img-circle" :src="activity.user.photo_url">\n                            </a>\n                            <div class="media-body">\n                                <small class="pull-right">{{ activity.created_at | relative }} ago</small>\n                                {{{ activity.title }}}<br>\n                                <small class="text-muted">{{ activity.created_at | human }}</small>\n                                <!--<div class="actions">-->\n                                    <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like</a>-->\n                                    <!--<a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> Love</a>-->\n                                <!--</div>-->\n                                <!--<div class="well">-->\n                                    <!--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s.-->\n                                    <!--Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).-->\n                                <!--</div>-->\n                                <!--<div class="pull-right">-->\n                                    <!--<a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like</a>-->\n                                    <!--<a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>-->\n                                    <!--<a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Message</a>-->\n                                <!--</div>-->\n                            </div>\n                        </div>\n                        \n                    </div>\n                    \n                    <button class="btn btn-primary btn-block m" style="margin-left: 0;" @click.prevent="fetchActivityFeed" :disabled="fetching" v-if="hasMore">\n                        <span v-if="fetching"><i class="fa fa-spinner fa-spin"></i> Show More</span>\n                        <span v-else><i class="fa fa-arrow-down"></i> Show More</span>\n                    </button>\n                </div>\n            </div>\n        </div>\n    ',
+
+    ready: function ready() {
+        this.fetchActivityFeed();
+    },
+
+
+    methods: {
+
+        // Fetch the activity feed for the given user
+        fetchActivityFeed: function fetchActivityFeed() {
+            var _this = this;
+
+            this.$http.get('/api/activity', { page: this.currentPage + 1 }).then(function (response) {
+                _this.currentPage = response.data.current_page;
+                _this.totalPages = response.data.last_page;
+                _this.activities = _this.activities.concat(response.data.data);
+                _this.fetching = false;
+                _this.loading = false;
+            });
+        }
+    },
+
+    filters: {
+        human: function human(value) {
+            var formatDate = moment.utc(value).local();
+            var format = '';
+
+            if (formatDate.diff(moment(), 'days') == 0) {
+                format += 'today ';
+            } else if (moment().diff(formatDate, 'days') == 1) {
+                format += 'yesterday ';
+            } else {
+                format += formatDate.fromNow();
+            }
+
+            var time = formatDate.format('hh:mm');
+            var date = formatDate.format('DD-MM-YYYY');
+
+            return format + ' at ' + time + ' - ' + date;
+        }
+    }
+});
+
+},{}],51:[function(require,module,exports){
+'use strict';
+
+Vue.component('subscribed-projects', {
+    props: ['user'],
+
+    data: function data() {
+        return {
+            projects: [],
+            loading: true
+        };
+    },
+
+
+    template: '\n        <div class="ibox float-e-margins">\n            <div class="ibox-title">\n                <h5>Subscribed projects</h5>\n            </div>\n            <div class="ibox-content ibox-heading">\n                <h3>Below are the projects you\'ve signed up for</h3>\n                <small><i class="fa fa-star"></i> We\'ve notified the companies, so they should get back to you soon with more information.</small>\n            </div>\n            <div class="ibox-content" style="padding: 100px 0;" v-if="loading">\n                <h4 class="text-center">Loading projects...</h4>\n                <div class="sk-spinner sk-spinner-three-bounce">\n                    <div class="sk-bounce1"></div>\n                    <div class="sk-bounce2"></div>\n                    <div class="sk-bounce3"></div>\n                </div>\n            </div>\n            <div class="ibox-content inspinia-timeline" v-else>\n                <div class="timeline-item" v-for="project in projects">\n                    <div class="row">\n                        <div class="col-xs-3 date">\n                            <i class="fa fa-file-text"></i> {{ project.pivot.created_at | relative }}<br/>\n                            <small class="text-navy">{{ project.pivot.created_at | format \'DD-MM-YYYY H:mm\' }}</small>\n                        </div>\n                        <div class="col-xs-7 content no-top-border">\n                            <p class="m-b-xs"><strong>{{ project.title }}</strong></p>\n                            <p>{{ project.description | truncate \'200\' }}</p>\n                            <p><a href="/projects/{{ project.id }}" class="btn btn-sm btn-primary pull-right" style="margin-bottom: 10px;">View details</a></p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ',
+
+    ready: function ready() {
+        this.fetchSubscribedProjects();
+    },
+
+
+    methods: {
+        fetchSubscribedProjects: function fetchSubscribedProjects() {
+            var _this = this;
+
+            this.$http.get('/api/blogger/projects').then(function (response) {
+                _this.projects = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    filters: {
+        format: function format(value, _format) {
+            return moment.utc(value).local().format(_format);
+        },
+
+
+        truncate: function truncate(string, value) {
+            if (string.length <= value) return string;
+
+            return string.substring(0, value) + '...';
+        }
+    }
+
+});
+
+},{}],52:[function(require,module,exports){
 'use strict';
 
 Vue.component('home', {
@@ -39377,7 +39964,62 @@ Vue.component('home', {
     }
 });
 
-},{}],49:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
+'use strict';
+
+Vue.component('projects-feed', {
+    props: ['user', 'company'],
+
+    data: function data() {
+        return {
+            loading: true,
+            projects: []
+        };
+    },
+
+
+    template: '\n        <div>\n            <div class="ibox" v-if="loading">\n                <div class="ibox-content" style="padding: 100px 0;">\n                    <h4 class="text-center">Loading projects...</h4>\n                    <div class="sk-spinner sk-spinner-three-bounce">\n                        <div class="sk-bounce1"></div>\n                        <div class="sk-bounce2"></div>\n                        <div class="sk-bounce3"></div>\n                    </div>\n                </div>\n            </div>\n            \n            <div v-else>\n                <div class="social-feed-box" v-for="project in projects">\n                    <div class="social-avatar">\n                        <!--<a href="" class="pull-left">-->\n                            <!--<img alt="image" src="img/a1.jpg">-->\n                        <!--</a>-->\n                        <div class="media-body">\n                            <a href="/projects/{{ project.id }}">{{ project.title }}</a>\n                            <small class="text-muted">{{ project.created_at | human }}</small>\n                        </div>\n                    </div>\n                    <div class="social-body">\n                        <p>{{ project.description }}</p>\n    \n                        <div class="btn-group">\n                            <!--<favorite :user="user" :project="project" :favorited="0"></favorite>-->\n                            <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>\n                            <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>\n                            <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>\n                        </div>\n                    </div>\n                    <div class="social-footer">\n                        <div class="social-comment">\n                            <a href="" class="pull-left">\n                                <img alt="image" src="img/a1.jpg">\n                            </a>\n                            <div class="media-body">\n                                <a href="#">\n                                    Andrew Williams\n                                </a>\n                                Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words.\n                                <br/>\n                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26 Like this!</a> -\n                                <small class="text-muted">12.06.2014</small>\n                            </div>\n                        </div>\n    \n                        <div class="social-comment">\n                            <a href="" class="pull-left">\n                                <img alt="image" src="img/a2.jpg">\n                            </a>\n                            <div class="media-body">\n                                <a href="#">\n                                    Andrew Williams\n                                </a>\n                                Making this the first true generator on the Internet. It uses a dictionary of.\n                                <br/>\n                                <a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11 Like this!</a> -\n                                <small class="text-muted">10.07.2014</small>\n                            </div>\n                        </div>\n    \n                        <div class="social-comment">\n                            <a href="" class="pull-left">\n                                <img alt="image" src="img/a3.jpg">\n                            </a>\n                            <div class="media-body">\n                                <textarea class="form-control" placeholder="Write comment..."></textarea>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    ',
+
+    ready: function ready() {
+        this.fetchProjectsFeed();
+    },
+
+
+    methods: {
+
+        // Fetch the projects feed for the given company
+        fetchProjectsFeed: function fetchProjectsFeed() {
+            var _this = this;
+
+            this.$http.get('/api/company/' + this.company + '/projects').then(function (response) {
+                _this.projects = response.data;
+                _this.loading = false;
+            });
+        }
+    },
+
+    filters: {
+        human: function human(value) {
+            var formatDate = moment.utc(value).local();
+            var format = '';
+
+            if (formatDate.diff(moment(), 'days') == 0) {
+                format += 'today ';
+            } else if (moment().diff(formatDate, 'days') == 1) {
+                format += 'yesterday ';
+            } else {
+                format += formatDate.fromNow();
+            }
+
+            var time = formatDate.format('hh:mm');
+            var date = formatDate.format('DD-MM-YYYY');
+
+            return format + ' at ' + time + ' - ' + date;
+        }
+    }
+});
+
+},{}],54:[function(require,module,exports){
 'use strict';
 
 Vue.component('favorite', {
@@ -39417,7 +40059,7 @@ Vue.component('favorite', {
     }
 });
 
-},{}],50:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 'use strict';
 
 Vue.component('project-subscribe', {
@@ -39460,7 +40102,7 @@ Vue.component('project-subscribe', {
     }
 });
 
-},{}],51:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 'use strict';
 
 Vue.component('project-unsubscribe', {
@@ -39494,7 +40136,7 @@ Vue.component('project-unsubscribe', {
     }
 });
 
-},{}],52:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 'use strict';
 
 Vue.component('update-profile-details', {
@@ -39529,7 +40171,47 @@ Vue.component('update-profile-details', {
     }
 });
 
-},{}],53:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
+'use strict';
+
+Vue.component('follow', {
+    props: ['user', 'follower', 'follows', 'button'],
+
+    template: '\n        <button v-el:button class="{{ button }}" @click="process">\n            <span v-if="follows"><i class="fa fa-user-times"></i> Unfollow</span>\n            <span v-else><i class="fa fa-user-plus"></i> Follow</span>\n        </button>\n    ',
+
+    ready: function ready() {
+        //
+    },
+
+
+    methods: {
+        process: function process() {
+            if (this.follows) {
+                this.unfollow();
+            } else {
+                this.follow();
+            }
+        },
+        follow: function follow() {
+            var _this = this;
+
+            this.$http.post('/users/' + this.follower + '/follow').then(function (response) {
+                _this.follows = 1;
+                $(_this.$els.button).blur();
+            });
+        },
+        unfollow: function unfollow() {
+            var _this2 = this;
+
+            this.$http.delete('/users/' + this.follower + '/unfollow').then(function (response) {
+                _this2.follows = 0;
+                $(_this2.$els.button).blur();
+            });
+        }
+    }
+});
+
+},{}],59:[function(require,module,exports){
 'use strict';
 
 /*
@@ -39819,7 +40501,7 @@ function WinMove() {
     }).disableSelection();
 }
 
-},{}],54:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 'use strict';
 
 var base = require('auth/register-braintree');
@@ -39828,7 +40510,7 @@ Vue.component('spark-register-braintree', {
     mixins: [base]
 });
 
-},{"auth/register-braintree":103}],55:[function(require,module,exports){
+},{"auth/register-braintree":109}],61:[function(require,module,exports){
 'use strict';
 
 var base = require('auth/register-stripe');
@@ -39848,7 +40530,7 @@ Vue.component('spark-register-stripe', {
     }
 });
 
-},{"auth/register-stripe":104}],56:[function(require,module,exports){
+},{"auth/register-stripe":110}],62:[function(require,module,exports){
 'use strict';
 
 /**
@@ -39943,7 +40625,7 @@ require('./kiosk/users');
 require('./kiosk/profile');
 require('./kiosk/add-discount');
 
-},{"./auth/register-braintree":54,"./auth/register-stripe":55,"./kiosk/add-discount":57,"./kiosk/announcements":58,"./kiosk/kiosk":59,"./kiosk/metrics":60,"./kiosk/profile":61,"./kiosk/users":62,"./navbar/navbar":63,"./notifications/notifications":64,"./settings/api":65,"./settings/api/create-token":66,"./settings/api/tokens":67,"./settings/invoices":68,"./settings/invoices/invoice-list":69,"./settings/invoices/update-extra-billing-information":70,"./settings/payment-method-braintree":71,"./settings/payment-method-stripe":72,"./settings/payment-method/redeem-coupon":73,"./settings/payment-method/update-payment-method-braintree":74,"./settings/payment-method/update-payment-method-stripe":75,"./settings/payment-method/update-vat-id":76,"./settings/profile":77,"./settings/profile/update-contact-information":78,"./settings/profile/update-profile-photo":79,"./settings/security":80,"./settings/security/disable-two-factor-auth":81,"./settings/security/enable-two-factor-auth":82,"./settings/security/update-password":83,"./settings/settings":84,"./settings/subscription":85,"./settings/subscription/cancel-subscription":86,"./settings/subscription/resume-subscription":87,"./settings/subscription/subscribe-braintree":88,"./settings/subscription/subscribe-stripe":89,"./settings/subscription/update-subscription":90,"./settings/teams":91,"./settings/teams/create-team":92,"./settings/teams/current-teams":93,"./settings/teams/mailed-invitations":94,"./settings/teams/pending-invitations":95,"./settings/teams/send-invitation":96,"./settings/teams/team-members":97,"./settings/teams/team-membership":98,"./settings/teams/team-profile":99,"./settings/teams/team-settings":100,"./settings/teams/update-team-name":101,"./settings/teams/update-team-photo":102}],57:[function(require,module,exports){
+},{"./auth/register-braintree":60,"./auth/register-stripe":61,"./kiosk/add-discount":63,"./kiosk/announcements":64,"./kiosk/kiosk":65,"./kiosk/metrics":66,"./kiosk/profile":67,"./kiosk/users":68,"./navbar/navbar":69,"./notifications/notifications":70,"./settings/api":71,"./settings/api/create-token":72,"./settings/api/tokens":73,"./settings/invoices":74,"./settings/invoices/invoice-list":75,"./settings/invoices/update-extra-billing-information":76,"./settings/payment-method-braintree":77,"./settings/payment-method-stripe":78,"./settings/payment-method/redeem-coupon":79,"./settings/payment-method/update-payment-method-braintree":80,"./settings/payment-method/update-payment-method-stripe":81,"./settings/payment-method/update-vat-id":82,"./settings/profile":83,"./settings/profile/update-contact-information":84,"./settings/profile/update-profile-photo":85,"./settings/security":86,"./settings/security/disable-two-factor-auth":87,"./settings/security/enable-two-factor-auth":88,"./settings/security/update-password":89,"./settings/settings":90,"./settings/subscription":91,"./settings/subscription/cancel-subscription":92,"./settings/subscription/resume-subscription":93,"./settings/subscription/subscribe-braintree":94,"./settings/subscription/subscribe-stripe":95,"./settings/subscription/update-subscription":96,"./settings/teams":97,"./settings/teams/create-team":98,"./settings/teams/current-teams":99,"./settings/teams/mailed-invitations":100,"./settings/teams/pending-invitations":101,"./settings/teams/send-invitation":102,"./settings/teams/team-members":103,"./settings/teams/team-membership":104,"./settings/teams/team-profile":105,"./settings/teams/team-settings":106,"./settings/teams/update-team-name":107,"./settings/teams/update-team-photo":108}],63:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/add-discount');
@@ -39952,7 +40634,7 @@ Vue.component('spark-kiosk-add-discount', {
     mixins: [base]
 });
 
-},{"kiosk/add-discount":111}],58:[function(require,module,exports){
+},{"kiosk/add-discount":117}],64:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/announcements');
@@ -39961,7 +40643,7 @@ Vue.component('spark-kiosk-announcements', {
     mixins: [base]
 });
 
-},{"kiosk/announcements":112}],59:[function(require,module,exports){
+},{"kiosk/announcements":118}],65:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/kiosk');
@@ -39970,7 +40652,7 @@ Vue.component('spark-kiosk', {
     mixins: [base]
 });
 
-},{"kiosk/kiosk":113}],60:[function(require,module,exports){
+},{"kiosk/kiosk":119}],66:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/metrics');
@@ -39979,7 +40661,7 @@ Vue.component('spark-kiosk-metrics', {
     mixins: [base]
 });
 
-},{"kiosk/metrics":114}],61:[function(require,module,exports){
+},{"kiosk/metrics":120}],67:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/profile');
@@ -39988,7 +40670,7 @@ Vue.component('spark-kiosk-profile', {
     mixins: [base]
 });
 
-},{"kiosk/profile":115}],62:[function(require,module,exports){
+},{"kiosk/profile":121}],68:[function(require,module,exports){
 'use strict';
 
 var base = require('kiosk/users');
@@ -39997,7 +40679,7 @@ Vue.component('spark-kiosk-users', {
     mixins: [base]
 });
 
-},{"kiosk/users":116}],63:[function(require,module,exports){
+},{"kiosk/users":122}],69:[function(require,module,exports){
 'use strict';
 
 var base = require('navbar/navbar');
@@ -40006,7 +40688,7 @@ Vue.component('spark-navbar', {
     mixins: [base]
 });
 
-},{"navbar/navbar":125}],64:[function(require,module,exports){
+},{"navbar/navbar":131}],70:[function(require,module,exports){
 'use strict';
 
 var base = require('notifications/notifications');
@@ -40015,7 +40697,7 @@ Vue.component('spark-notifications', {
     mixins: [base]
 });
 
-},{"notifications/notifications":126}],65:[function(require,module,exports){
+},{"notifications/notifications":132}],71:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/api');
@@ -40024,7 +40706,7 @@ Vue.component('spark-api', {
     mixins: [base]
 });
 
-},{"settings/api":127}],66:[function(require,module,exports){
+},{"settings/api":133}],72:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/api/create-token');
@@ -40033,7 +40715,7 @@ Vue.component('spark-create-token', {
     mixins: [base]
 });
 
-},{"settings/api/create-token":128}],67:[function(require,module,exports){
+},{"settings/api/create-token":134}],73:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/api/tokens');
@@ -40042,7 +40724,7 @@ Vue.component('spark-tokens', {
     mixins: [base]
 });
 
-},{"settings/api/tokens":129}],68:[function(require,module,exports){
+},{"settings/api/tokens":135}],74:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/invoices');
@@ -40051,7 +40733,7 @@ Vue.component('spark-invoices', {
     mixins: [base]
 });
 
-},{"settings/invoices":130}],69:[function(require,module,exports){
+},{"settings/invoices":136}],75:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/invoices/invoice-list');
@@ -40060,7 +40742,7 @@ Vue.component('spark-invoice-list', {
     mixins: [base]
 });
 
-},{"settings/invoices/invoice-list":131}],70:[function(require,module,exports){
+},{"settings/invoices/invoice-list":137}],76:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/invoices/update-extra-billing-information');
@@ -40069,7 +40751,7 @@ Vue.component('spark-update-extra-billing-information', {
     mixins: [base]
 });
 
-},{"settings/invoices/update-extra-billing-information":132}],71:[function(require,module,exports){
+},{"settings/invoices/update-extra-billing-information":138}],77:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method-braintree');
@@ -40078,7 +40760,7 @@ Vue.component('spark-payment-method-braintree', {
     mixins: [base]
 });
 
-},{"settings/payment-method-braintree":133}],72:[function(require,module,exports){
+},{"settings/payment-method-braintree":139}],78:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method-stripe');
@@ -40087,7 +40769,7 @@ Vue.component('spark-payment-method-stripe', {
     mixins: [base]
 });
 
-},{"settings/payment-method-stripe":134}],73:[function(require,module,exports){
+},{"settings/payment-method-stripe":140}],79:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method/redeem-coupon');
@@ -40096,7 +40778,7 @@ Vue.component('spark-redeem-coupon', {
     mixins: [base]
 });
 
-},{"settings/payment-method/redeem-coupon":135}],74:[function(require,module,exports){
+},{"settings/payment-method/redeem-coupon":141}],80:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method/update-payment-method-braintree');
@@ -40105,7 +40787,7 @@ Vue.component('spark-update-payment-method-braintree', {
     mixins: [base]
 });
 
-},{"settings/payment-method/update-payment-method-braintree":136}],75:[function(require,module,exports){
+},{"settings/payment-method/update-payment-method-braintree":142}],81:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method/update-payment-method-stripe');
@@ -40114,7 +40796,7 @@ Vue.component('spark-update-payment-method-stripe', {
     mixins: [base]
 });
 
-},{"settings/payment-method/update-payment-method-stripe":137}],76:[function(require,module,exports){
+},{"settings/payment-method/update-payment-method-stripe":143}],82:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/payment-method/update-vat-id');
@@ -40123,7 +40805,7 @@ Vue.component('spark-update-vat-id', {
     mixins: [base]
 });
 
-},{"settings/payment-method/update-vat-id":138}],77:[function(require,module,exports){
+},{"settings/payment-method/update-vat-id":144}],83:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/profile');
@@ -40132,7 +40814,7 @@ Vue.component('spark-profile', {
     mixins: [base]
 });
 
-},{"settings/profile":139}],78:[function(require,module,exports){
+},{"settings/profile":145}],84:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/profile/update-contact-information');
@@ -40159,7 +40841,7 @@ Vue.component('spark-update-contact-information', {
     }
 });
 
-},{"settings/profile/update-contact-information":140}],79:[function(require,module,exports){
+},{"settings/profile/update-contact-information":146}],85:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/profile/update-profile-photo');
@@ -40168,7 +40850,7 @@ Vue.component('spark-update-profile-photo', {
     mixins: [base]
 });
 
-},{"settings/profile/update-profile-photo":141}],80:[function(require,module,exports){
+},{"settings/profile/update-profile-photo":147}],86:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/security');
@@ -40177,7 +40859,7 @@ Vue.component('spark-security', {
     mixins: [base]
 });
 
-},{"settings/security":142}],81:[function(require,module,exports){
+},{"settings/security":148}],87:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/security/disable-two-factor-auth');
@@ -40186,7 +40868,7 @@ Vue.component('spark-disable-two-factor-auth', {
     mixins: [base]
 });
 
-},{"settings/security/disable-two-factor-auth":143}],82:[function(require,module,exports){
+},{"settings/security/disable-two-factor-auth":149}],88:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/security/enable-two-factor-auth');
@@ -40195,7 +40877,7 @@ Vue.component('spark-enable-two-factor-auth', {
     mixins: [base]
 });
 
-},{"settings/security/enable-two-factor-auth":144}],83:[function(require,module,exports){
+},{"settings/security/enable-two-factor-auth":150}],89:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/security/update-password');
@@ -40204,7 +40886,7 @@ Vue.component('spark-update-password', {
     mixins: [base]
 });
 
-},{"settings/security/update-password":145}],84:[function(require,module,exports){
+},{"settings/security/update-password":151}],90:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/settings');
@@ -40213,7 +40895,7 @@ Vue.component('spark-settings', {
     mixins: [base]
 });
 
-},{"settings/settings":146}],85:[function(require,module,exports){
+},{"settings/settings":152}],91:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription');
@@ -40222,7 +40904,7 @@ Vue.component('spark-subscription', {
     mixins: [base]
 });
 
-},{"settings/subscription":147}],86:[function(require,module,exports){
+},{"settings/subscription":153}],92:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription/cancel-subscription');
@@ -40231,7 +40913,7 @@ Vue.component('spark-cancel-subscription', {
     mixins: [base]
 });
 
-},{"settings/subscription/cancel-subscription":148}],87:[function(require,module,exports){
+},{"settings/subscription/cancel-subscription":154}],93:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription/resume-subscription');
@@ -40240,7 +40922,7 @@ Vue.component('spark-resume-subscription', {
     mixins: [base]
 });
 
-},{"settings/subscription/resume-subscription":149}],88:[function(require,module,exports){
+},{"settings/subscription/resume-subscription":155}],94:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription/subscribe-braintree');
@@ -40249,7 +40931,7 @@ Vue.component('spark-subscribe-braintree', {
     mixins: [base]
 });
 
-},{"settings/subscription/subscribe-braintree":150}],89:[function(require,module,exports){
+},{"settings/subscription/subscribe-braintree":156}],95:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription/subscribe-stripe');
@@ -40258,7 +40940,7 @@ Vue.component('spark-subscribe-stripe', {
     mixins: [base]
 });
 
-},{"settings/subscription/subscribe-stripe":151}],90:[function(require,module,exports){
+},{"settings/subscription/subscribe-stripe":157}],96:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/subscription/update-subscription');
@@ -40267,7 +40949,7 @@ Vue.component('spark-update-subscription', {
     mixins: [base]
 });
 
-},{"settings/subscription/update-subscription":152}],91:[function(require,module,exports){
+},{"settings/subscription/update-subscription":158}],97:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams');
@@ -40276,7 +40958,7 @@ Vue.component('spark-teams', {
     mixins: [base]
 });
 
-},{"settings/teams":153}],92:[function(require,module,exports){
+},{"settings/teams":159}],98:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/create-team');
@@ -40285,7 +40967,7 @@ Vue.component('spark-create-team', {
     mixins: [base]
 });
 
-},{"settings/teams/create-team":154}],93:[function(require,module,exports){
+},{"settings/teams/create-team":160}],99:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/current-teams');
@@ -40294,7 +40976,7 @@ Vue.component('spark-current-teams', {
     mixins: [base]
 });
 
-},{"settings/teams/current-teams":155}],94:[function(require,module,exports){
+},{"settings/teams/current-teams":161}],100:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/mailed-invitations');
@@ -40303,7 +40985,7 @@ Vue.component('spark-mailed-invitations', {
     mixins: [base]
 });
 
-},{"settings/teams/mailed-invitations":156}],95:[function(require,module,exports){
+},{"settings/teams/mailed-invitations":162}],101:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/pending-invitations');
@@ -40312,7 +40994,7 @@ Vue.component('spark-pending-invitations', {
     mixins: [base]
 });
 
-},{"settings/teams/pending-invitations":157}],96:[function(require,module,exports){
+},{"settings/teams/pending-invitations":163}],102:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/send-invitation');
@@ -40321,7 +41003,7 @@ Vue.component('spark-send-invitation', {
     mixins: [base]
 });
 
-},{"settings/teams/send-invitation":158}],97:[function(require,module,exports){
+},{"settings/teams/send-invitation":164}],103:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/team-members');
@@ -40330,7 +41012,7 @@ Vue.component('spark-team-members', {
     mixins: [base]
 });
 
-},{"settings/teams/team-members":159}],98:[function(require,module,exports){
+},{"settings/teams/team-members":165}],104:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/team-membership');
@@ -40339,7 +41021,7 @@ Vue.component('spark-team-membership', {
     mixins: [base]
 });
 
-},{"settings/teams/team-membership":160}],99:[function(require,module,exports){
+},{"settings/teams/team-membership":166}],105:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/team-profile');
@@ -40348,7 +41030,7 @@ Vue.component('spark-team-profile', {
     mixins: [base]
 });
 
-},{"settings/teams/team-profile":161}],100:[function(require,module,exports){
+},{"settings/teams/team-profile":167}],106:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/team-settings');
@@ -40357,7 +41039,7 @@ Vue.component('spark-team-settings', {
     mixins: [base]
 });
 
-},{"settings/teams/team-settings":162}],101:[function(require,module,exports){
+},{"settings/teams/team-settings":168}],107:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/update-team-name');
@@ -40366,7 +41048,7 @@ Vue.component('spark-update-team-name', {
     mixins: [base]
 });
 
-},{"settings/teams/update-team-name":163}],102:[function(require,module,exports){
+},{"settings/teams/update-team-name":169}],108:[function(require,module,exports){
 'use strict';
 
 var base = require('settings/teams/update-team-photo');
@@ -40375,7 +41057,7 @@ Vue.component('spark-update-team-photo', {
     mixins: [base]
 });
 
-},{"settings/teams/update-team-photo":164}],103:[function(require,module,exports){
+},{"settings/teams/update-team-photo":170}],109:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40494,7 +41176,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/braintree":118,"./../mixins/plans":120,"./../mixins/register":121}],104:[function(require,module,exports){
+},{"./../mixins/braintree":124,"./../mixins/plans":126,"./../mixins/register":127}],110:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40721,7 +41403,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/plans":120,"./../mixins/register":121,"./../mixins/vat":124}],105:[function(require,module,exports){
+},{"./../mixins/plans":126,"./../mixins/register":127,"./../mixins/vat":130}],111:[function(require,module,exports){
 'use strict';
 
 /**
@@ -40742,28 +41424,28 @@ Vue.filter('datetime', function (value) {
  * Format the given date into a relative time.
  */
 Vue.filter('relative', function (value) {
-    moment.updateLocale('en', {
-        relativeTime: {
-            future: "in %s",
-            past: "%s",
-            s: "1s",
-            m: "1m",
-            mm: "%dm",
-            h: "1h",
-            hh: "%dh",
-            d: "1d",
-            dd: "%dd",
-            M: "1 month ago",
-            MM: "%d months ago",
-            y: "1y",
-            yy: "%dy"
-        }
-    });
+    // moment.updateLocale('en', {
+    //     relativeTime : {
+    //         future: "in %s",
+    //         past:   "%s",
+    //         s:  "1s",
+    //         m:  "1m",
+    //         mm: "%dm",
+    //         h:  "1h",
+    //         hh: "%dh",
+    //         d:  "1d",
+    //         dd: "%dd",
+    //         M:  "1 month ago",
+    //         MM: "%d months ago",
+    //         y:  "1y",
+    //         yy: "%dy"
+    //     }
+    // });
 
     return moment.utc(value).local().fromNow();
 });
 
-},{}],106:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 'use strict';
 
 /**
@@ -40790,7 +41472,7 @@ require('./errors');
  */
 $.extend(Spark, require('./http'));
 
-},{"./errors":107,"./form":108,"./http":109}],107:[function(require,module,exports){
+},{"./errors":113,"./form":114,"./http":115}],113:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -40857,61 +41539,61 @@ window.SparkFormErrors = function () {
     };
 };
 
-},{}],108:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 "use strict";
 
 /**
  * SparkForm helper class. Used to set common properties on all forms.
  */
 window.SparkForm = function (data) {
-  var form = this;
+    var form = this;
 
-  $.extend(this, data);
+    $.extend(this, data);
 
-  /**
-   * Create the form error helper instance.
-   */
-  this.errors = new SparkFormErrors();
+    /**
+     * Create the form error helper instance.
+     */
+    this.errors = new SparkFormErrors();
 
-  this.busy = false;
-  this.successful = false;
+    this.busy = false;
+    this.successful = false;
 
-  /**
-   * Start processing the form.
-   */
-  this.startProcessing = function () {
-    form.errors.forget();
-    form.busy = true;
-    form.successful = false;
-  };
+    /**
+     * Start processing the form.
+     */
+    this.startProcessing = function () {
+        form.errors.forget();
+        form.busy = true;
+        form.successful = false;
+    };
 
-  /**
-   * Finish processing the form.
-   */
-  this.finishProcessing = function () {
-    form.busy = false;
-    form.successful = true;
-  };
+    /**
+     * Finish processing the form.
+     */
+    this.finishProcessing = function () {
+        form.busy = false;
+        form.successful = true;
+    };
 
-  /**
-   * Reset the errors and other state for the form.
-   */
-  this.resetStatus = function () {
-    form.errors.forget();
-    form.busy = false;
-    form.successful = false;
-  },
+    /**
+     * Reset the errors and other state for the form.
+     */
+    this.resetStatus = function () {
+        form.errors.forget();
+        form.busy = false;
+        form.successful = false;
+    },
 
-  /**
-   * Set the errors on the form.
-   */
-  this.setErrors = function (errors) {
-    form.busy = false;
-    form.errors.set(errors);
-  };
+    /**
+     * Set the errors on the form.
+     */
+    this.setErrors = function (errors) {
+        form.busy = false;
+        form.errors.set(errors);
+    };
 };
 
-},{}],109:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40962,7 +41644,7 @@ module.exports = {
     }
 };
 
-},{}],110:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -40999,7 +41681,7 @@ module.exports = {
     }
 };
 
-},{}],111:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 'use strict';
 
 function kioskAddDiscountForm() {
@@ -41063,7 +41745,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/discounts":119}],112:[function(require,module,exports){
+},{"./../mixins/discounts":125}],118:[function(require,module,exports){
 'use strict';
 
 var announcementsCreateForm = function announcementsCreateForm() {
@@ -41183,7 +41865,7 @@ module.exports = {
     }
 };
 
-},{}],113:[function(require,module,exports){
+},{}],119:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41218,7 +41900,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/tab-state":123}],114:[function(require,module,exports){
+},{"./../mixins/tab-state":129}],120:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41500,7 +42182,7 @@ module.exports = {
     }
 };
 
-},{}],115:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41648,7 +42330,7 @@ module.exports = {
     }
 };
 
-},{}],116:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41781,7 +42463,7 @@ module.exports = {
     }
 };
 
-},{}],117:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41823,7 +42505,7 @@ module.exports = {
     }
 };
 
-},{}],118:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 'use strict';
 
 window.braintreeCheckout = [];
@@ -41878,7 +42560,7 @@ module.exports = {
     }
 };
 
-},{}],119:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -41975,7 +42657,7 @@ module.exports = {
     }
 };
 
-},{}],120:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 'use strict';
 
 /*
@@ -42104,7 +42786,7 @@ module.exports = {
     }
 };
 
-},{}],121:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42218,7 +42900,7 @@ module.exports = {
     }
 };
 
-},{}],122:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 'use strict';
 
 /*
@@ -42384,7 +43066,7 @@ module.exports = {
     }
 };
 
-},{}],123:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42481,7 +43163,7 @@ module.exports = {
     }
 };
 
-},{}],124:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42523,7 +43205,7 @@ module.exports = {
     }
 };
 
-},{}],125:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42547,7 +43229,7 @@ module.exports = {
     }
 };
 
-},{}],126:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42631,7 +43313,7 @@ module.exports = {
     }
 };
 
-},{}],127:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42686,7 +43368,7 @@ module.exports = {
     }
 };
 
-},{}],128:[function(require,module,exports){
+},{}],134:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42813,7 +43495,7 @@ module.exports = {
     }
 };
 
-},{}],129:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42921,7 +43603,7 @@ module.exports = {
     }
 };
 
-},{}],130:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42970,7 +43652,7 @@ module.exports = {
 	}
 };
 
-},{}],131:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -42986,7 +43668,7 @@ module.exports = {
     }
 };
 
-},{}],132:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43031,7 +43713,7 @@ module.exports = {
     }
 };
 
-},{}],133:[function(require,module,exports){
+},{}],139:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43105,7 +43787,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/discounts":119}],134:[function(require,module,exports){
+},{"./../mixins/discounts":125}],140:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43147,7 +43829,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/discounts":119}],135:[function(require,module,exports){
+},{"./../mixins/discounts":125}],141:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43190,7 +43872,7 @@ module.exports = {
     }
 };
 
-},{}],136:[function(require,module,exports){
+},{}],142:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43286,7 +43968,7 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/braintree":118}],137:[function(require,module,exports){
+},{"./../../mixins/braintree":124}],143:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43471,7 +44153,7 @@ module.exports = {
     }
 };
 
-},{}],138:[function(require,module,exports){
+},{}],144:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43514,14 +44196,14 @@ module.exports = {
     }
 };
 
-},{}],139:[function(require,module,exports){
+},{}],145:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     props: ['user']
 };
 
-},{}],140:[function(require,module,exports){
+},{}],146:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43563,7 +44245,7 @@ module.exports = {
     }
 };
 
-},{}],141:[function(require,module,exports){
+},{}],147:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43623,7 +44305,7 @@ module.exports = {
     }
 };
 
-},{}],142:[function(require,module,exports){
+},{}],148:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43651,7 +44333,7 @@ module.exports = {
     }
 };
 
-},{}],143:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43681,7 +44363,7 @@ module.exports = {
 	}
 };
 
-},{}],144:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43725,7 +44407,7 @@ module.exports = {
 	}
 };
 
-},{}],145:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43753,7 +44435,7 @@ module.exports = {
     }
 };
 
-},{}],146:[function(require,module,exports){
+},{}],152:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43782,7 +44464,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/tab-state":123}],147:[function(require,module,exports){
+},{"./../mixins/tab-state":129}],153:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43843,7 +44525,7 @@ module.exports = {
     }
 };
 
-},{"./../mixins/plans":120,"./../mixins/subscriptions":122}],148:[function(require,module,exports){
+},{"./../mixins/plans":126,"./../mixins/subscriptions":128}],154:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43893,7 +44575,7 @@ module.exports = {
     }
 };
 
-},{}],149:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -43934,7 +44616,7 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/plans":120,"./../../mixins/subscriptions":122}],150:[function(require,module,exports){
+},{"./../../mixins/plans":126,"./../../mixins/subscriptions":128}],156:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44031,7 +44713,7 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/braintree":118,"./../../mixins/plans":120,"./../../mixins/subscriptions":122}],151:[function(require,module,exports){
+},{"./../../mixins/braintree":124,"./../../mixins/plans":126,"./../../mixins/subscriptions":128}],157:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44234,7 +44916,7 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/plans":120,"./../../mixins/subscriptions":122,"./../../mixins/vat":124}],152:[function(require,module,exports){
+},{"./../../mixins/plans":126,"./../../mixins/subscriptions":128,"./../../mixins/vat":130}],158:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44328,14 +45010,14 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/plans":120,"./../../mixins/subscriptions":122}],153:[function(require,module,exports){
+},{"./../../mixins/plans":126,"./../../mixins/subscriptions":128}],159:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     props: ['user', 'teams']
 };
 
-},{}],154:[function(require,module,exports){
+},{}],160:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44383,7 +45065,7 @@ module.exports = {
     }
 };
 
-},{}],155:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44472,7 +45154,7 @@ module.exports = {
     }
 };
 
-},{}],156:[function(require,module,exports){
+},{}],162:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44494,7 +45176,7 @@ module.exports = {
     }
 };
 
-},{}],157:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44570,7 +45252,7 @@ module.exports = {
     }
 };
 
-},{}],158:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44604,7 +45286,7 @@ module.exports = {
     }
 };
 
-},{}],159:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44754,7 +45436,7 @@ module.exports = {
     }
 };
 
-},{}],160:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44801,14 +45483,14 @@ module.exports = {
     }
 };
 
-},{}],161:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     props: ['user', 'team']
 };
 
-},{}],162:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44869,7 +45551,7 @@ module.exports = {
     }
 };
 
-},{"./../../mixins/tab-state":123}],163:[function(require,module,exports){
+},{"./../../mixins/tab-state":129}],169:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44910,7 +45592,7 @@ module.exports = {
     }
 };
 
-},{}],164:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -44981,7 +45663,7 @@ module.exports = {
     }
 };
 
-},{}],165:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 'use strict';
 
 /*
@@ -45009,7 +45691,7 @@ if ($('#spark-app').length > 0) {
   require('vue-bootstrap');
 }
 
-},{"bootstrap/dist/js/npm":3,"jquery":18,"js-cookie":19,"moment":21,"promise":24,"underscore":34,"urijs":37,"vue-bootstrap":167}],166:[function(require,module,exports){
+},{"bootstrap/dist/js/npm":3,"jquery":18,"js-cookie":19,"moment":21,"promise":25,"underscore":35,"urijs":38,"vue-bootstrap":173}],172:[function(require,module,exports){
 'use strict';
 
 /**
@@ -45296,7 +45978,7 @@ module.exports = {
     }
 };
 
-},{}],167:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 'use strict';
 
 /*
@@ -45334,6 +46016,6 @@ require('./filters');
  */
 require('./forms/bootstrap');
 
-},{"./filters":105,"./forms/bootstrap":106,"./interceptors":110,"./mixin":117,"vue":40,"vue-resource":39}]},{},[41]);
+},{"./filters":111,"./forms/bootstrap":112,"./interceptors":116,"./mixin":123,"vue":41,"vue-resource":40}]},{},[42]);
 
 //# sourceMappingURL=app.js.map

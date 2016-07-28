@@ -16,6 +16,7 @@ class BranchesControllerTest extends TestCase
         $this->be($user);
 
         $this->get('/api/branches')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => ['id', 'slug', 'name']]);
     }
 }

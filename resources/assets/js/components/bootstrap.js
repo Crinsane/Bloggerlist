@@ -25,3 +25,11 @@ require('./company/projects/project-steps');
 require('./projects/project-subscribe');
 require('./projects/project-unsubscribe');
 require('./projects/favorite');
+
+require('./users/follow');
+
+require('./activity-feed');
+require('./projects-feed');
+
+require('./dashboard/daily-feed');
+require('./dashboard/subscribed-projects');

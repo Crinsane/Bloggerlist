@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->text('photo_url')->nullable();
             $table->string('title')->nullable();
             $table->string('website')->nullable();
-            $table->string('branch_id')->nullable();
+            $table->integer('branch_id')->unsigned()->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('uses_two_factor_auth')->default(0);
             $table->string('authy_id')->nullable();
@@ -53,7 +53,10 @@ class CreateUsersTable extends Migration
             $table->string('country', 2)->nullable();
             $table->timestamp('last_read_announcements_at')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('branch_id')->references('id')->on('branches');
         });
     }
 

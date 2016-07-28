@@ -10,7 +10,7 @@ class DashboardController extends SparkDashboardController
     /**
      * Show the settings dashboard.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function show()
     {

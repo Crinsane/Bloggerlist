@@ -29,6 +29,7 @@ class ProjectMediaControllerTest extends TestCase
         $this->be($user);
 
         $this->get('/company/projects/1/media')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => [
                  'id', 'model_id', 'model_type', 'collection_name', 'name', 'file_name', 'disk', 'size', 'manipulations', 'custom_properties', 'order_column',
              ]]);

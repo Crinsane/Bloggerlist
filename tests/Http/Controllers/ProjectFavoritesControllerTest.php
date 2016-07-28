@@ -15,7 +15,7 @@ class ProjectFavoritesControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->post('/projects/1/favorite');
+        $this->post('/projects/1/favorite')->assertResponseOk();
 
         $this->seeInDatabase('user_project_favorites', ['user_id' => 1, 'project_id' => 1]);
     }
@@ -31,7 +31,7 @@ class ProjectFavoritesControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->delete('/projects/1/unfavorite');
+        $this->delete('/projects/1/unfavorite')->assertResponseOk();
 
         $this->dontSeeInDatabase('user_project_favorites', ['user_id' => 1, 'project_id' => 1]);
     }

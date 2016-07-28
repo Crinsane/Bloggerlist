@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(\App\Contracts\ActivityRepository::class, \App\Activities\ActivityRepository::class);
+
+        $this->app->bind(\Abraham\TwitterOAuth\TwitterOAuth::class, function ($app) {
+            return new \Abraham\TwitterOAuth\TwitterOAuth('5IWiMLSQMcyNGMxQn87Sm7IYE', '0huTLoGLftx9hqfwR1ceoYDmLG7wj93mu3uOPS6EtXhAYOUQOi');
+        });
     }
 }

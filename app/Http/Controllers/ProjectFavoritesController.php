@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Projects\UserHasFavorited;
 use App\Projects\Project;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class ProjectFavoritesController extends Controller
 {
@@ -18,6 +17,8 @@ class ProjectFavoritesController extends Controller
     public function store(Project $project, Request $request)
     {
         $request->user()->favorite($project);
+
+        event(new UserHasFavorited($request->user(), $project));
     }
 
     /**
