@@ -10,14 +10,6 @@ use App\Http\Controllers\Controller;
 class ProjectMediaController extends Controller
 {
     /**
-     * Create a new controller instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      * Return a list of all images in the images collection of the given project.
      *
      * @param \App\Projects\Project $project

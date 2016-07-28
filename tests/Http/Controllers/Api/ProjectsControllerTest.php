@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectsControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_return_a_list_of_all_projects_for_the_authenticated_user()
@@ -17,6 +17,7 @@ class ProjectsControllerTest extends TestCase
         $this->be($user);
 
         $this->get('/api/projects')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => ['title', 'description', 'category_id', 'reward', 'location', 'category' => ['id', 'slug', 'name']]]);
     }
 }

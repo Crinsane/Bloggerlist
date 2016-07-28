@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Projects\Category;
 use App\Projects\Project;
+use App\Projects\Category;
 
 class ProjectsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show a listing of all projects.
      *

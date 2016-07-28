@@ -33,7 +33,13 @@ class Branch extends Model
         parent::boot();
 
         static::creating(function (Branch $branch) {
-            $branch->slug = str_slug($branch->name);
+            $slug = str_slug($branch->name);
+
+            if ($count = static::where('slug', $slug)->count()) {
+                $slug .= '-' . ++$count;
+            }
+
+            $branch->slug = $slug;
         });
     }
 }

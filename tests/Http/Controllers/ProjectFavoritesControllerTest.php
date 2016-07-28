@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectFavoritesControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_add_a_project_to_a_users_favorites()
@@ -16,7 +16,7 @@ class ProjectFavoritesControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->post('/projects/1/favorite');
+        $this->post('/projects/1/favorite')->assertResponseOk();
 
         $this->seeInDatabase('user_project_favorites', ['user_id' => 1, 'project_id' => 1]);
     }
@@ -32,7 +32,7 @@ class ProjectFavoritesControllerTest extends TestCase
 
         $this->be($user);
 
-        $this->delete('/projects/1/unfavorite');
+        $this->delete('/projects/1/unfavorite')->assertResponseOk();
 
         $this->dontSeeInDatabase('user_project_favorites', ['user_id' => 1, 'project_id' => 1]);
     }

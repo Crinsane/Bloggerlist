@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectStepsControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_return_a_list_of_all_steps_of_a_project()
@@ -18,6 +18,7 @@ class ProjectStepsControllerTest extends TestCase
         $this->be($user);
 
         $this->get('api/projects/1/steps')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => ['id', 'order', 'title', 'description']]);
     }
 }

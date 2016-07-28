@@ -22,6 +22,6 @@
         @yield('body')
     </div>
 
-    @include('chat.small-chat')
+    {{--@include('chat.small-chat')--}}
 
 @endsection

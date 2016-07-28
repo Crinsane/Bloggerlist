@@ -24,6 +24,7 @@ require('spark-bootstrap');
 
 require('metismenu');
 require('jquery-slimscroll');
+require('peity');
 
 /**
  * Require sortable

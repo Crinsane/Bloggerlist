@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectMediaControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_return_a_list_of_all_project_images()
@@ -30,6 +30,7 @@ class ProjectMediaControllerTest extends TestCase
         $this->be($user);
 
         $this->get('/company/projects/1/media')
+             ->assertResponseOk()
              ->seeJsonStructure(['*' => [
                  'id', 'model_id', 'model_type', 'collection_name', 'name', 'file_name', 'disk', 'size', 'manipulations', 'custom_properties', 'order_column',
              ]]);

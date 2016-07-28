@@ -19,5 +19,6 @@ class BranchTableSeeder extends Seeder
         Branch::create(['name' => 'Travel']);
         Branch::create(['name' => 'Family & Kids']);
         Branch::create(['name' => 'Food']);
+        Branch::create(['name' => 'Other']);
     }
 }

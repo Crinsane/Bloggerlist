@@ -3,10 +3,14 @@
 namespace App;
 
 use App\Projects\Project;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Spark\User as SparkUser;
 
 class User extends SparkUser
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -52,13 +56,23 @@ class User extends SparkUser
     ];
 
     /**
-     * A User has many projects.
+     * A user has many projects.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function projects()
     {
         return $this->hasMany(Project::class);
+    }
+
+    /**
+     * A user belongs to a branch.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     /**
@@ -84,6 +98,48 @@ class User extends SparkUser
     }
 
     /**
+     * A user can follow many other users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'user_id', 'follows');
+    }
+
+    /**
+     * A user can be followed by many other users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'follows', 'user_id');
+    }
+
+    /**
+     * Scope the query to only include user of the type company.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCompanies(Builder $query)
+    {
+        return $query->where('type', 'company');
+    }
+
+    /**
+     * Scope the query to only include user of the type blogger.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeBloggers(Builder $query)
+    {
+        return $query->where('type', 'blogger');
+    }
+
+    /**
      * Helper method to check if a user is of the type company.
      *
      * @return bool
@@ -91,6 +147,16 @@ class User extends SparkUser
     public function isCompany()
     {
         return $this->type == 'company';
+    }
+
+    /**
+     * Helper method to check if a user is of the type blogger.
+     *
+     * @return bool
+     */
+    public function isBlogger()
+    {
+        return $this->type == 'blogger';
     }
 
     /**
@@ -119,10 +185,10 @@ class User extends SparkUser
     /**
      * Add a project to the users favorites.
      *
-     * @param mixed $project
+     * @param \App\Projects\Project $project
      * @return void
      */
-    public function favorite($project)
+    public function favorite(Project $project)
     {
         $this->favorites()->attach($project);
     }
@@ -130,11 +196,33 @@ class User extends SparkUser
     /**
      * Remove the project from the users favorites.
      *
-     * @param mixed $project
+     * @param \App\Projects\Project $project
      * @return void
      */
-    public function unfavorite($project)
+    public function unfavorite(Project $project)
     {
         $this->favorites()->detach($project);
+    }
+
+    /**
+     * Add a user to the list of followers.
+     *
+     * @param \App\User $user
+     * @return void
+     */
+    public function follow(User $user)
+    {
+        $this->follows()->attach($user);
+    }
+
+    /**
+     * Remove a user from the list of followers.
+     *
+     * @param \App\User $user
+     * @return void
+     */
+    public function unfollow(User $user)
+    {
+        $this->follows()->detach($user);
     }
 }

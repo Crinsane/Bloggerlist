@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Projects\UserHasSubscribed;
 use App\Projects\Project;
 use Illuminate\Http\Request;
+use App\Events\Projects\UserHasSubscribed;
 
 class ProjectSubscriptionController extends Controller
 {
