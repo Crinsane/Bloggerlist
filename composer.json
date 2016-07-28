@@ -17,7 +17,8 @@
         "spatie/laravel-medialibrary": "^3.18",
         "gloudemans/notify": "^1.0",
         "sammyk/laravel-facebook-sdk": "^3.3",
-        "thujohn/twitter": "^2.2"
+        "thujohn/twitter": "^2.2",
+        "andreyco/instagram": "^3.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c79b4943b78dcd100c83faeb5103da11",
-    "content-hash": "9d4f9bf750127f104692df97106d5926",
+    "hash": "57d67a39e733932b8cb6928eae66478e",
+    "content-hash": "b06e80b28f255c382a0436aacc494c48",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -56,6 +56,49 @@
                 "toolkit"
             ],
             "time": "2015-05-16 19:24:58"
+        },
+        {
+            "name": "andreyco/instagram",
+            "version": "3.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Andreyco/Instagram-for-PHP.git",
+                "reference": "8c1b98f601a68142095461c0b8a9498375145e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Andreyco/Instagram-for-PHP/zipball/8c1b98f601a68142095461c0b8a9498375145e0d",
+                "reference": "8c1b98f601a68142095461c0b8a9498375145e0d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Andreyco\\Instagram\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Andrej Badin",
+                    "email": "contact@andrejbadin.com",
+                    "homepage": "http://andrejbadin.com"
+                }
+            ],
+            "description": "An easy-to-use PHP Class for accessing Instagram's API.",
+            "homepage": "https://github.com/Andreyco/Instagram-for-PHP",
+            "keywords": [
+                "api",
+                "instagram"
+            ],
+            "time": "2016-07-17 23:42:10"
         },
         {
             "name": "classpreloader/classpreloader",

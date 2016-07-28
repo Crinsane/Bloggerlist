@@ -2,10 +2,11 @@
 
 namespace App\SocialMedia;
 
-use App\Contracts\SocialMedia;
+use App\SocialMedia;
 use SammyK\LaravelFacebookSdk\LaravelFacebookSdk;
+use App\Contracts\SocialMedia as SocialMediaContract;
 
-class Facebook implements SocialMedia
+class Facebook implements SocialMediaContract
 {
     /**
      * Instance of the Facebook SDK class.
@@ -66,14 +67,14 @@ class Facebook implements SocialMedia
     }
 
     /**
-     * Get the follower count for the user belonging to the access token.
+     * Get the follower count for the user.
      *
-     * @param string $token
+     * @param \App\SocialMedia $socialMedia
      * @return int
      */
-    public function getFollowerCount($token)
+    public function getFollowerCount(SocialMedia $socialMedia)
     {
-        $this->facebook->setDefaultAccessToken($token);
+        $this->facebook->setDefaultAccessToken($socialMedia->facebook_token);
 
         $response = $this->facebook->get('/me/friends');
 

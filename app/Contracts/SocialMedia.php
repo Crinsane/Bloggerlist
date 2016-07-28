@@ -2,6 +2,8 @@
 
 namespace App\Contracts;
 
+use App\SocialMedia as SocialMediaModel;
+
 interface SocialMedia
 {
     /**
@@ -19,10 +21,10 @@ interface SocialMedia
     public function handleCallback();
 
     /**
-     * Get the follower count for the user belonging to the access token.
+     * Get the follower count for the user.
      *
-     * @param string $token
+     * @param \App\SocialMedia $socialMedia
      * @return int
      */
-    public function getFollowerCount($token);
+    public function getFollowerCount(SocialMediaModel $socialMedia);
 }

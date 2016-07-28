@@ -57,6 +57,11 @@ Route::group(['middleware' => 'auth'], function () {
         return redirect('/settings#/socialmedia');
     });
 
+    Route::get('/oauth/instagram', function (\App\SocialMedia\Instagram $instagram) {
+        $instagram->handleCallback();
+
+        return redirect('/settings#/socialmedia');
+    });
 });
 
 /**

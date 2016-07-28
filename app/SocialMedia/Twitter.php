@@ -2,10 +2,11 @@
 
 namespace App\SocialMedia;
 
+use App\SocialMedia;
 use Thujohn\Twitter\Twitter as TwitterApi;
-use App\Contracts\SocialMedia;
+use App\Contracts\SocialMedia as SocialMediaContract;
 
-class Twitter implements SocialMedia
+class Twitter implements SocialMediaContract
 {
     /**
      * Instance of the Twitter class.
@@ -65,13 +66,15 @@ class Twitter implements SocialMedia
     }
 
     /**
-     * Get the follower count for the user belonging to the access token.
+     * Get the follower count for the user.
      *
-     * @param string $token
+     * @param \App\SocialMedia $socialMedia
      * @return int
      */
-    public function getFollowerCount($token)
+    public function getFollowerCount(SocialMedia $socialMedia)
     {
+        $response = $this->twitter->getUsers(['user_id' => $socialMedia->twitter_id]);
 
+        return $response->followers_count;
     }
 }

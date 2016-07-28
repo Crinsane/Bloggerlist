@@ -23,7 +23,7 @@
                     <label class="col-md-4 control-label">Twitter</label>
                     <div class="col-md-4">
                         <?php $twitter = app(\App\SocialMedia\Twitter::class);?>
-                        <a href="{{ $twitter->getLoginUrl() }}" class="btn btn-block btn-twitter"><i class="fa fa-btn fa-twitter"></i>Authorize Twitter</a>
+                        <a href="{{  $twitter->getLoginUrl() }}" class="btn btn-block btn-twitter"><i class="fa fa-btn fa-twitter"></i>Authorize Twitter</a>
                     </div>
                 </div>
 
@@ -31,7 +31,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Instagram</label>
                     <div class="col-md-4">
-                        <button class="btn btn-block btn-instagram"><i class="fa fa-btn fa-instagram"></i>Authorize Instagram</button>
+                        <?php $instagram = app(\App\SocialMedia\Instagram::class);?>
+                        <a href="{{ $instagram->getLoginUrl() }}" class="btn btn-block btn-instagram"><i class="fa fa-btn fa-instagram"></i>Authorize Instagram</a>
                     </div>
                 </div>
 

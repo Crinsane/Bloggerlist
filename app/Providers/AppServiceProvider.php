@@ -27,8 +27,13 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(\App\Contracts\ActivityRepository::class, \App\Activities\ActivityRepository::class);
 
-        $this->app->bind(\Abraham\TwitterOAuth\TwitterOAuth::class, function ($app) {
-            return new \Abraham\TwitterOAuth\TwitterOAuth('5IWiMLSQMcyNGMxQn87Sm7IYE', '0huTLoGLftx9hqfwR1ceoYDmLG7wj93mu3uOPS6EtXhAYOUQOi');
+        $this->app->bind(\Andreyco\Instagram\Client::class, function ($app) {
+            return new \Andreyco\Instagram\Client([
+                'apiKey'      => '99389b80793b4975bb7bee78f2d4c417',
+                'apiSecret'   => '44628b74cd4d43c0a5750da95f548c26',
+                'apiCallback' => 'http://thebloggerlist.dev/oauth/instagram',
+                'scope'       => ['basic'],
+            ]);
         });
     }
 }

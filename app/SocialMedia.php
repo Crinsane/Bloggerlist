@@ -22,6 +22,7 @@ class SocialMedia extends Model
     protected $fillable = [
         'facebook_id', 'facebook_name', 'facebook_token', 'facebook_token_expires_at',
         'twitter_id', 'twitter_name', 'twitter_token', 'twitter_token_expires_at',
+        'instagram_id', 'instagram_name', 'instagram_token', 'instagram_token_expires_at',
     ];
 
     /**
@@ -32,18 +33,5 @@ class SocialMedia extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Update the Facebook token.
-     *
-     * @param string $token
-     */
-    public function updateFacebookToken($token)
-    {
-        $this->update([
-            'facebook_token' => $token,
-            'facebook_token_expires_at' => Carbon::now()
-        ]);
     }
 }
