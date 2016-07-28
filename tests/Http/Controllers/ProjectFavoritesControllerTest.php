@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectFavoritesControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_add_a_project_to_a_users_favorites()

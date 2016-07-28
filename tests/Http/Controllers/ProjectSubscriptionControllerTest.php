@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProjectSubscriptionControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_subscribe_a_user_for_a_project()

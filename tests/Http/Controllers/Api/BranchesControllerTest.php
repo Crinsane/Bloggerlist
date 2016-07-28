@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BranchesControllerTest extends TestCase
 {
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /** @test */
     public function it_will_return_a_list_of_branches()
