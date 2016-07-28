@@ -30,3 +30,6 @@ require('./users/follow');
 
 require('./activity-feed');
 require('./projects-feed');
+
+require('./dashboard/daily-feed');
+require('./dashboard/subscribed-projects');

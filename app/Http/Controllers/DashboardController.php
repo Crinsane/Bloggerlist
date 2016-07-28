@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Performance\UserFollowersPerformance;
 
 class DashboardController extends Controller
 {
@@ -13,8 +11,11 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function show()
+    public function show(UserFollowersPerformance $performance)
     {
-        return view('dashboard');
+        $followerCount = $performance->getFollowerCountForUser(auth()->user());
+        $newFollowersLastWeek = $performance->getNewFollowerCountForLastWeek(auth()->user());
+
+        return view('dashboard', compact('followerCount', 'newFollowersLastWeek'));
     }
 }

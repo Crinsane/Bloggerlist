@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ProjectSubscriptionControllerTest extends TestCase
+class ProjectSubscriptionsControllerTest extends TestCase
 {
     use DatabaseMigrations;
 

@@ -51,3 +51,9 @@ $factory->define(App\Branch::class, function (Faker\Generator $faker) {
         'name' => ucfirst($faker->word),
     ];
 });
+
+$factory->define(App\Activities\Activity::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->sentence(mt_rand(6, 10)),
+    ];
+});

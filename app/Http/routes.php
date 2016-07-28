@@ -29,8 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/projects/{project}', 'ProjectsController@show')->name('projects.show');
 
     // Project subscription
-    Route::post('/projects/{project}/subscribe', 'ProjectSubscriptionController@store');
-    Route::delete('/projects/{project}/unsubscribe', 'ProjectSubscriptionController@destroy');
+    Route::post('/projects/{project}/subscribe', 'ProjectSubscriptionsController@store');
+    Route::delete('/projects/{project}/unsubscribe', 'ProjectSubscriptionsController@destroy');
 
     // Project favorite
     Route::post('/projects/{project}/favorite', 'ProjectFavoritesController@store');

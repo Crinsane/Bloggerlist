@@ -42,6 +42,13 @@
                                                     </li>
                                                 @endif
 
+                                                <!-- Social Media Link -->
+                                                <li role="presentation">
+                                                    <a href="#socialmedia" aria-controls="socialmedia" role="tab" data-toggle="tab">
+                                                        <i class="fa fa-fw fa-btn fa-users"></i>Social Media
+                                                    </a>
+                                                </li>
+
                                                 <!-- Security Link -->
                                                 <li role="presentation">
                                                     <a href="#security" aria-controls="security" role="tab" data-toggle="tab">
@@ -50,13 +57,13 @@
                                                 </li>
 
                                                 <!-- API Link -->
-                                                @if (Spark::usesApi())
-                                                    <li role="presentation">
-                                                        <a href="#api" aria-controls="api" role="tab" data-toggle="tab">
-                                                            <i class="fa fa-fw fa-btn fa-cubes"></i>API
-                                                        </a>
-                                                    </li>
-                                                @endif
+                                                {{--@if (Spark::usesApi())--}}
+                                                    {{--<li role="presentation">--}}
+                                                        {{--<a href="#api" aria-controls="api" role="tab" data-toggle="tab">--}}
+                                                            {{--<i class="fa fa-fw fa-btn fa-cubes"></i>API--}}
+                                                        {{--</a>--}}
+                                                    {{--</li>--}}
+                                                {{--@endif--}}
                                             </ul>
                                         </div>
                                     </div>
@@ -113,6 +120,11 @@
                                             @include('spark::settings.teams')
                                         </div>
                                     @endif
+
+                                    <!-- Social Media -->
+                                    <div role="tabpanel" class="tab-pane" id="socialmedia">
+                                        @include('settings.socialmedia.profiles')
+                                    </div>
 
                                     <!-- Security -->
                                     <div role="tabpanel" class="tab-pane" id="security">
