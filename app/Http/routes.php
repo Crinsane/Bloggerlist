@@ -62,6 +62,16 @@ Route::group(['middleware' => 'auth'], function () {
 
         return redirect('/settings#/socialmedia');
     });
+
+    Route::get('/oauth/youtube', function (\App\SocialMedia\YouTube $youtube) {
+        $youtube->handleCallback();
+
+        return redirect('/settings#/socialmedia');
+    });
+
+    Route::get('/socialmedia/youtube', function () {
+        return \Socialite::with('youtube')->redirect();
+    });
 });
 
 /**

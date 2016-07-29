@@ -23,6 +23,7 @@ class SocialMedia extends Model
         'facebook_id', 'facebook_name', 'facebook_token', 'facebook_token_expires_at',
         'twitter_id', 'twitter_name', 'twitter_token', 'twitter_token_expires_at',
         'instagram_id', 'instagram_name', 'instagram_token', 'instagram_token_expires_at',
+        'youtube_id', 'youtube_name', 'youtube_token', 'youtube_token_expires_at',
     ];
 
     /**

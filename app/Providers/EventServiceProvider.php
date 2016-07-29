@@ -67,7 +67,11 @@ class EventServiceProvider extends ServiceProvider
 
         'App\Events\Projects\UserHasSubscribed' => [
             'App\Listeners\Projects\CreateSubscriptionNotification',
-        ]
+        ],
+
+        'SocialiteProviders\Manager\SocialiteWasCalled' => [
+            'SocialiteProviders\YouTube\YouTubeExtendSocialite@handle',
+        ],
     ];
 
     /**

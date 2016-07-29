@@ -1,5 +1,5 @@
 <div class="row  border-bottom white-bg dashboard-header">
-    <div class="col-sm-3">
+    <div class="col-sm-5">
         <h2>Welcome to The Bloggerlist</h2>
         <small>This is your personal dashboard.</small>
         {{--<ul class="list-group clear-list m-t">--}}
@@ -25,7 +25,7 @@
             {{--</li>--}}
         {{--</ul>--}}
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         {{--<div class="flot-chart dashboard-chart">--}}
             {{--<div class="flot-chart-content" id="flot-dashboard-chart"></div>--}}
         {{--</div>--}}

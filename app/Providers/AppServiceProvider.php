@@ -35,5 +35,9 @@ class AppServiceProvider extends ServiceProvider
                 'scope'       => ['basic'],
             ]);
         });
+
+        $this->app->bind(\Alaouy\Youtube\Youtube::class, function ($app) {
+            return new \Alaouy\Youtube\Youtube($app['config']->get('youtube.KEY'));
+        });
     }
 }

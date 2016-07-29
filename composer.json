@@ -18,7 +18,9 @@
         "gloudemans/notify": "^1.0",
         "sammyk/laravel-facebook-sdk": "^3.3",
         "thujohn/twitter": "^2.2",
-        "andreyco/instagram": "^3.4"
+        "andreyco/instagram": "^3.4",
+        "alaouy/youtube": "^1.2",
+        "socialiteproviders/youtube": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

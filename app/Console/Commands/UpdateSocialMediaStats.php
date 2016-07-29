@@ -6,6 +6,7 @@ use App\SocialMedia;
 use App\SocialMedia\Facebook;
 use App\SocialMedia\Instagram;
 use App\SocialMedia\Twitter;
+use App\SocialMedia\YouTube;
 use App\SocialMediaStat;
 use App\User;
 use Illuminate\Console\Command;
@@ -48,19 +49,28 @@ class UpdateSocialMediaStats extends Command
     private $instagram;
 
     /**
+     * Instance of the YouTube class.
+     *
+     * @var \App\SocialMedia\YouTube
+     */
+    private $youtube;
+
+    /**
      * Create a new command instance.
      *
      * @param \App\SocialMedia\Facebook  $facebook
      * @param \App\SocialMedia\Twitter   $twitter
      * @param \App\SocialMedia\Instagram $instagram
+     * @param \App\SocialMedia\YouTube   $youtube
      */
-    public function __construct(Facebook $facebook, Twitter $twitter, Instagram $instagram)
+    public function __construct(Facebook $facebook, Twitter $twitter, Instagram $instagram, YouTube $youtube)
     {
         parent::__construct();
 
         $this->facebook = $facebook;
         $this->twitter = $twitter;
         $this->instagram = $instagram;
+        $this->youtube = $youtube;
     }
 
     /**
@@ -101,8 +111,18 @@ class UpdateSocialMediaStats extends Command
 
         if ($socialMedia->facebook_token) {
             $stat->facebook = $this->facebook->getFollowerCount($socialMedia);
+        }
+
+        if ($socialMedia->twitter_token) {
             $stat->twitter = $this->twitter->getFollowerCount($socialMedia);
+        }
+
+        if ($socialMedia->instagram_token) {
             $stat->instagram = $this->instagram->getFollowerCount($socialMedia);
+        }
+
+        if ($socialMedia->youtube_token) {
+            $stat->youtube = $this->youtube->getFollowerCount($socialMedia);
         }
 
         $stat->save();

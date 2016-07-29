@@ -166,6 +166,8 @@ return [
         Gloudemans\Notify\LaravelNotifyServiceProvider::class,
         SammyK\LaravelFacebookSdk\LaravelFacebookSdkServiceProvider::class,
         Thujohn\Twitter\TwitterServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
 
     ],
 
@@ -215,6 +217,7 @@ return [
 
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

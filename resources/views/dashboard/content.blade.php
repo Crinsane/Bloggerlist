@@ -1,6 +1,63 @@
+@inject('metrics', 'App\SocialMedia\Stats\Metrics')
+
 <div class="row">
     <div class="col-lg-12">
         <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            {{--<span class="label label-info pull-right">followers</span>--}}
+                            <h5><i class="fa fa-facebook"></i> Facebook</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $metrics->countFor('facebook') }}</h1>
+                            <div class="stat-percent font-bold text-navy">{{ $metrics->percentageFor('facebook') }}% <i class="fa fa-level-up"></i></div>
+                            <small>Followers</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            {{--<span class="label label-info pull-right">followers</span>--}}
+                            <h5><i class="fa fa-twitter"></i> Twitter</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $metrics->countFor('twitter') }}</h1>
+                            <div class="stat-percent font-bold text-navy">{{ $metrics->percentageFor('twitter') }}% <i class="fa fa-level-up"></i></div>
+                            <small>Followers</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            {{--<span class="label label-info pull-right">followers</span>--}}
+                            <h5><i class="fa fa-instagram"></i> Instagram</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $metrics->countFor('instagram') }}</h1>
+                            <div class="stat-percent font-bold text-navy">{{ $metrics->percentageFor('instagram') }}% <i class="fa fa-level-up"></i></div>
+                            <small>Followers</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            {{--<span class="label label-info pull-right">subscribers</span>--}}
+                            <h5><i class="fa fa-youtube"></i> YouTube</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">{{ $metrics->countFor('youtube') }}</h1>
+                            <div class="stat-percent font-bold text-navy">{{ $metrics->percentageFor('youtube') }}% <i class="fa fa-level-up"></i></div>
+                            <small>Subscribers</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
