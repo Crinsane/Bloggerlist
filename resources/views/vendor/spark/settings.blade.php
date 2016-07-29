@@ -8,6 +8,8 @@
     @else
         <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     @endif
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.1.0/Chart.min.js"></script>
 @endsection
 
 @section('body')
@@ -49,12 +51,14 @@
                                                     </a>
                                                 </li>
 
-                                                <!-- Google Analytics Link -->
-                                                <li role="presentation">
-                                                    <a href="#analytics" aria-controls="analytics" role="tab" data-toggle="tab">
-                                                        <i class="fa fa-fw fa-btn fa-line-chart"></i>Google Analytics
-                                                    </a>
-                                                </li>
+                                                @if (Spark::developer(Auth::user()->email) || Auth::user()->isBlogger())
+                                                    <!-- Google Analytics Link -->
+                                                    <li role="presentation">
+                                                        <a href="#analytics" aria-controls="analytics" role="tab" data-toggle="tab">
+                                                            <i class="fa fa-fw fa-btn fa-line-chart"></i>Google Analytics
+                                                        </a>
+                                                    </li>
+                                                @endif
 
                                                 <!-- Security Link -->
                                                 <li role="presentation">
@@ -77,7 +81,7 @@
                                 </div>
 
                                 <!-- Billing Tabs -->
-                                @if (Spark::canBillCustomers() && Auth()->user()->isCompany())
+                                @if (Spark::canBillCustomers() && Auth::user()->isCompany())
                                     <div class="ibox">
                                         <div class="ibox-title"><h5>Billing</h5></div>
 
@@ -133,10 +137,12 @@
                                         @include('settings.socialmedia.profiles')
                                     </div>
 
-                                    <!-- Google Analytics -->
-                                    <div role="tabpanel" class="tab-pane" id="analytics">
-                                        @include('settings.analytics')
-                                    </div>
+                                    @if (Spark::developer(Auth::user()->email) || Auth::user()->isBlogger())
+                                        <!-- Google Analytics -->
+                                        <div role="tabpanel" class="tab-pane" id="analytics">
+                                            @include('settings.analytics')
+                                        </div>
+                                    @endif
 
                                     <!-- Security -->
                                     <div role="tabpanel" class="tab-pane" id="security">
@@ -151,7 +157,7 @@
                                     @endif
 
                                     <!-- Billing Tab Panes -->
-                                    @if (Spark::canBillCustomers())
+                                    @if (Spark::canBillCustomers() && Auth::user()->isCompany())
                                         @if (Spark::hasPaidPlans())
                                             <!-- Subscription -->
                                             <div role="tabpanel" class="tab-pane" id="subscription">

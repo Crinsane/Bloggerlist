@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Setting profile details...
     Route::put('/settings/profile/details', 'ProfileDetailsController@update');
+    Route::put('/settings/analytics', 'Settings\AnalyticsController@update');
 
     // Company project creation and editing...
     Route::get('/company/projects', 'Companies\ProjectsController@index')->name('company.projects.index');
