@@ -33,3 +33,5 @@ require('./projects-feed');
 
 require('./dashboard/daily-feed');
 require('./dashboard/subscribed-projects');
+
+require('./settings/update-analytics-settings');

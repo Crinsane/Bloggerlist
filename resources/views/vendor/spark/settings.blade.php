@@ -49,6 +49,13 @@
                                                     </a>
                                                 </li>
 
+                                                <!-- Google Analytics Link -->
+                                                <li role="presentation">
+                                                    <a href="#analytics" aria-controls="analytics" role="tab" data-toggle="tab">
+                                                        <i class="fa fa-fw fa-btn fa-line-chart"></i>Google Analytics
+                                                    </a>
+                                                </li>
+
                                                 <!-- Security Link -->
                                                 <li role="presentation">
                                                     <a href="#security" aria-controls="security" role="tab" data-toggle="tab">
@@ -124,6 +131,11 @@
                                     <!-- Social Media -->
                                     <div role="tabpanel" class="tab-pane" id="socialmedia">
                                         @include('settings.socialmedia.profiles')
+                                    </div>
+
+                                    <!-- Google Analytics -->
+                                    <div role="tabpanel" class="tab-pane" id="analytics">
+                                        @include('settings.analytics')
                                     </div>
 
                                     <!-- Security -->

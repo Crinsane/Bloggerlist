@@ -37,6 +37,8 @@ class CreateSocialmediaTable extends Migration
             $table->string('youtube_token')->nullable();
             $table->timestamp('youtube_token_expires_at')->nullable();
 
+            $table->string('analytics_id')->nullable();
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

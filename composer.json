@@ -20,7 +20,8 @@
         "thujohn/twitter": "^2.2",
         "andreyco/instagram": "^3.4",
         "alaouy/youtube": "^1.2",
-        "socialiteproviders/youtube": "^2.0"
+        "socialiteproviders/youtube": "^2.0",
+        "spatie/laravel-analytics": "^2.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -66,6 +66,17 @@ class Twitter implements SocialMediaContract
     }
 
     /**
+     * Refresh the access token.
+     *
+     * @param \App\SocialMedia $socialMedia
+     * @return mixed
+     */
+    public function refreshToken(SocialMedia $socialMedia)
+    {
+        // TODO: Implement refreshToken() method.
+    }
+
+    /**
      * Get the follower count for the user.
      *
      * @param \App\SocialMedia $socialMedia

@@ -168,6 +168,7 @@ return [
         Thujohn\Twitter\TwitterServiceProvider::class,
         Alaouy\Youtube\YoutubeServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
+        Spatie\Analytics\AnalyticsServiceProvider::class,
 
     ],
 
@@ -218,6 +219,7 @@ return [
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
 
     ],
 

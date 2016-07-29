@@ -6,72 +6,55 @@ Route::get('/', 'LandingController@show');
 
 Route::group(['middleware' => 'auth'], function () {
 
-    // Dashboard
+    // Dashboard...
     Route::get('/dashboard', 'DashboardController@show')->name('home');
 
-    // Setting profile details
+    // Setting profile details...
     Route::put('/settings/profile/details', 'ProfileDetailsController@update');
 
-    // Company project creation and editing
+    // Company project creation and editing...
     Route::get('/company/projects', 'Companies\ProjectsController@index')->name('company.projects.index');
     Route::get('/company/projects/create', 'Companies\ProjectsController@create')->name('company.projects.create');
     Route::post('/company/projects', 'Companies\ProjectsController@store');
     Route::get('/company/projects/{project}/edit', 'Companies\ProjectsController@edit')->name('company.projects.edit');
     Route::put('/company/projects/{project}', 'Companies\ProjectsController@update');
 
-    // Company project media management
+    // Company project media management...
     Route::get('/company/projects/{project}/media', 'Companies\ProjectMediaController@index');
     Route::post('/company/projects/{project}/media', 'Companies\ProjectMediaController@store');
     Route::delete('/company/projects/{project}/media/{media}', 'Companies\ProjectMediaController@destroy');
 
-    // All projects
+    // All projects...
     Route::get('/projects', 'ProjectsController@index')->name('projects.index');
     Route::get('/projects/{project}', 'ProjectsController@show')->name('projects.show');
 
-    // Project subscription
+    // Project subscription...
     Route::post('/projects/{project}/subscribe', 'ProjectSubscriptionsController@store');
     Route::delete('/projects/{project}/unsubscribe', 'ProjectSubscriptionsController@destroy');
 
-    // Project favorite
+    // Project favorite...
     Route::post('/projects/{project}/favorite', 'ProjectFavoritesController@store');
     Route::delete('/projects/{project}/unfavorite', 'ProjectFavoritesController@destroy');
 
+    // Bloggers...
     Route::get('/bloggers', 'BloggersController@index')->name('bloggers.index');
     Route::get('/bloggers/{user}', 'BloggersController@show')->name('bloggers.show');
 
+    // Companies...
     Route::get('/companies', 'CompaniesController@index')->name('companies.index');
     Route::get('/companies/{user}', 'CompaniesController@show')->name('companies.show');
 
+    // User following...
     Route::post('/users/{user}/follow', 'UserFollowersController@store');
     Route::delete('/users/{user}/unfollow', 'UserFollowersController@destroy');
 
-    Route::get('/oauth/facebook', function (\App\SocialMedia\Facebook $facebook) {
-        $facebook->handleCallback();
+    // Social media OAuth...
+    Route::get('/oauth/facebook', 'OAuthController@facebook');
+    Route::get('/oauth/twitter', 'OAuthController@twitter');
+    Route::get('/oauth/instagram', 'OAuthController@instagram');
+    Route::get('/oauth/youtube', 'OAuthController@youtube');
 
-        return redirect('/settings#/socialmedia');
-    });
-
-    Route::get('/oauth/twitter', function (\App\SocialMedia\Twitter $twitter) {
-        $twitter->handleCallback();
-
-        return redirect('/settings#/socialmedia');
-    });
-
-    Route::get('/oauth/instagram', function (\App\SocialMedia\Instagram $instagram) {
-        $instagram->handleCallback();
-
-        return redirect('/settings#/socialmedia');
-    });
-
-    Route::get('/oauth/youtube', function (\App\SocialMedia\YouTube $youtube) {
-        $youtube->handleCallback();
-
-        return redirect('/settings#/socialmedia');
-    });
-
-    Route::get('/socialmedia/youtube', function () {
-        return \Socialite::with('youtube')->redirect();
-    });
+    Route::get('/socialmedia/youtube', 'OAuthController@youtubeRedirect');
 });
 
 /**

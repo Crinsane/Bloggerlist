@@ -110,6 +110,13 @@ class UpdateSocialMediaStats extends Command
         $stat = new SocialMediaStat(['user_id' => $socialMedia->user_id]);
 
         if ($socialMedia->facebook_token) {
+            if ($socialMedia->tokenShouldBeUpdated('facebook')) {
+                $refreshedToken = $this->facebook->refreshToken($socialMedia);
+                $token = $refreshedToken->getValue();
+                $expiresAt = $refreshedToken->getExpiresAt();
+                $socialMedia->updateToken('facebook', $token, $expiresAt);
+            }
+
             $stat->facebook = $this->facebook->getFollowerCount($socialMedia);
         }
 

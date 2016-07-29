@@ -67,6 +67,19 @@ class Facebook implements SocialMediaContract
     }
 
     /**
+     * Refresh the access token.
+     *
+     * @param \App\SocialMedia $socialMedia
+     * @return mixed
+     */
+    public function refreshToken(SocialMedia $socialMedia)
+    {
+        $this->facebook->setDefaultAccessToken($socialMedia->facebook_token);
+
+        return $this->getLongLivedToken($socialMedia->facebook_token);
+    }
+
+    /**
      * Get the follower count for the user.
      *
      * @param \App\SocialMedia $socialMedia

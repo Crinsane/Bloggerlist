@@ -2,11 +2,11 @@
 
 namespace App\SocialMedia;
 
-use App\Contracts\SocialMedia;
+use App\SocialMedia;
 use \Andreyco\Instagram\Client;
-use App\SocialMedia as SocialMediaModel;
+use App\Contracts\SocialMedia as SocialMediaContract;
 
-class Instagram implements SocialMedia
+class Instagram implements SocialMediaContract
 {
     /**
      * Instance of the Instagram client.
@@ -53,12 +53,23 @@ class Instagram implements SocialMedia
     }
 
     /**
+     * Refresh the access token.
+     *
+     * @param \App\SocialMedia $socialMedia
+     * @return mixed
+     */
+    public function refreshToken(SocialMedia $socialMedia)
+    {
+        // TODO: Implement refreshToken() method.
+    }
+
+    /**
      * Get the follower count for the user.
      *
      * @param \App\SocialMedia $socialMedia
      * @return int
      */
-    public function getFollowerCount(SocialMediaModel $socialMedia)
+    public function getFollowerCount(SocialMedia $socialMedia)
     {
         $this->instagram->setAccessToken($socialMedia->instagram_token);
 

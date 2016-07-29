@@ -132,7 +132,7 @@ class SparkServiceProvider extends ServiceProvider
         Spark::swap('UserRepository@current', function () {
             $user = $this->app->make(UserRepository::class)->current();
 
-            return $user ? $user->load('subscribedProjects') : null;
+            return $user ? $user->load('subscribedProjects', 'socialMedia') : null;
         });
     }
 }

@@ -2,12 +2,12 @@
 
 namespace App\SocialMedia;
 
-use App\Contracts\SocialMedia;
-use App\SocialMedia as SocialMediaModel;
-use Alaouy\Youtube\Youtube as YoutubeApi;
 use Carbon\Carbon;
+use App\SocialMedia;
+use Alaouy\Youtube\Youtube as YoutubeApi;
+use App\Contracts\SocialMedia as SocialMediaContract;
 
-class YouTube implements SocialMedia
+class YouTube implements SocialMediaContract
 {
     /**
      * Instance of the Youtube class.
@@ -54,12 +54,23 @@ class YouTube implements SocialMedia
     }
 
     /**
+     * Refresh the access token.
+     *
+     * @param \App\SocialMedia $socialMedia
+     * @return mixed
+     */
+    public function refreshToken(SocialMedia $socialMedia)
+    {
+        // TODO: Implement refreshToken() method.
+    }
+
+    /**
      * Get the follower count for the user.
      *
      * @param \App\SocialMedia $socialMedia
      * @return int
      */
-    public function getFollowerCount(SocialMediaModel $socialMedia)
+    public function getFollowerCount(SocialMedia $socialMedia)
     {
         $response = $this->youtube->getChannelById('UCElfoFp9Qn9cSTCK8rqq4fQ');
 

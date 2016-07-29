@@ -21,6 +21,14 @@ interface SocialMedia
     public function handleCallback();
 
     /**
+     * Refresh the access token.
+     *
+     * @param \App\SocialMedia $socialMedia
+     * @return mixed
+     */
+    public function refreshToken(SocialMediaModel $socialMedia);
+
+    /**
      * Get the follower count for the user.
      *
      * @param \App\SocialMedia $socialMedia
